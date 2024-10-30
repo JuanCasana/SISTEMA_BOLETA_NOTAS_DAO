@@ -106,7 +106,9 @@ public class UsuarioDAO {
                 + (user.getContraseñaUsuario() != null ? ", Contraseña = ?" : "")
                 + " WHERE IdUsuario = ?";
 
-        try (Connection con = cn.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (
+                Connection con = cn.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
             // Asignar los parámetros a la consulta
             ps.setString(1, user.getDniUsuario());

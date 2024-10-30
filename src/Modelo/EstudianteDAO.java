@@ -22,7 +22,7 @@ public class EstudianteDAO {
     PreparedStatement ps;
     ResultSet rs;
     
-    public boolean RegistrarAlumno(EstudianteControlador estudiante) {
+    public boolean RegistrarEstudiante(EstudianteControlador estudiante) {
         String sql = "INSERT INTO Alumno (IdAlumno, Dni, ApPaterno, ApMaterno, Nombres, Email, Celular,Sexo, AnioIngreso) VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
@@ -51,7 +51,7 @@ public class EstudianteDAO {
         }
     }
     
-    public List CargarAlumno(){
+    public List CargarEstudiante(){
         List<EstudianteControlador> ListaEstudiantes = new ArrayList<>();
         
         String sql = "SELECT IdAlumno, Dni, ApPaterno, ApMaterno, Nombres, Email, Celular, Sexo, AnioIngreso FROM Alumno;";
@@ -79,7 +79,7 @@ public class EstudianteDAO {
         return ListaEstudiantes;
     }
     
-    public void ModificarAlumno(EstudianteControlador estudiante) {
+    public void ModificarEstudiante(EstudianteControlador estudiante) {
         // Crear la consulta SQL para actualizar los datos del usuario
         String sql = "UPDATE Alumno SET Dni = ?, ApPaterno = ?, ApMaterno = ?, Nombres = ?, Email = ?, Celular = ? WHERE IdAlumno = ?";
 
