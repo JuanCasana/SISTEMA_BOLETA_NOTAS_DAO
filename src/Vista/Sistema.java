@@ -17,6 +17,7 @@ import Modelo.BoletaNotasDAO;
 import Modelo.EstudianteDAO;
 import Modelo.MatriculaDAO;
 import Modelo.ModulosDAO;
+import Modelo.MultiLineTableCellRenderer;
 import Modelo.NotasDAO;
 import Modelo.PeriodoLectivoDAO;
 import Modelo.ProgramaEstudioDAO;
@@ -34,9 +35,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Sistema extends javax.swing.JFrame {
-    
+
     ButtonGroup btnGr;
     ButtonGroup btnGrAlumno;
     DefaultTableModel modelo = new DefaultTableModel();
@@ -59,7 +59,7 @@ public class Sistema extends javax.swing.JFrame {
     NotasDAO notas = new NotasDAO();
     BoletaNotasControlador estudianteBN = new BoletaNotasControlador();
     BoletaNotasDAO estudiantesBNs = new BoletaNotasDAO();
-    
+
     public Sistema() {
         btnGr = new ButtonGroup();
         btnGrAlumno = new ButtonGroup();
@@ -163,7 +163,7 @@ public class Sistema extends javax.swing.JFrame {
         }
         tblUnidadesDidacticas.setModel(modelo);
     }
-    
+
     public void CargarPeriodoLectivo() {
         List<PeriodoLectivoControlador> CargarPeriodoLect = periodosLectivos.CargarPeriodoLectivo();
         modelo = (DefaultTableModel) tblPeriodoLectivo.getModel();
@@ -177,7 +177,7 @@ public class Sistema extends javax.swing.JFrame {
         }
         tblPeriodoLectivo.setModel(modelo);
     }
-    
+
     public void CargarMatricula() {
         List<MatriculaControlador> CargarEs = matriculas.CargarMatricula();
         modelo = (DefaultTableModel) tblMatricula.getModel();
@@ -199,7 +199,7 @@ public class Sistema extends javax.swing.JFrame {
 
         tblEstudiante.setModel(modelo);
     }
-    
+
     public void CargarNotas() {
         List<NotasControlador> CargarNot = notas.CargarNotas();
         modelo = (DefaultTableModel) tblNotas.getModel();
@@ -215,14 +215,14 @@ public class Sistema extends javax.swing.JFrame {
         }
         tblNotas.setModel(modelo);
     }
-    
+
 // Método para cargar datos en la tabla a partir de la búsqueda
     public void CargarEstudianteBN(String dni) {
         List<BoletaNotasControlador> CargarEsBN = estudiantesBNs.CargarEstudianteBN(dni);
         modelo = (DefaultTableModel) tblEstudiantesBN.getModel();
         modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
         Object[] ob = new Object[6];
-        
+
         for (BoletaNotasControlador estudianteBN : CargarEsBN) {
             ob[0] = estudianteBN.getIdAlumnoBN();
             ob[1] = estudianteBN.getDni();
@@ -232,21 +232,53 @@ public class Sistema extends javax.swing.JFrame {
             ob[5] = estudianteBN.getIdPeriodoAcademicoBN();
             modelo.addRow(ob);
         }
+        // Paso 2: Crear e implementar el renderizador personalizado en las columnas necesarias
+        MultiLineTableCellRenderer multiLineRenderer = new MultiLineTableCellRenderer();
+        tblEstudiantesBN.getColumnModel().getColumn(3).setCellRenderer(multiLineRenderer); // Columna de NombreCompleto
+        tblEstudiantesBN.getColumnModel().getColumn(4).setCellRenderer(multiLineRenderer); // Columna de NombreProgramaEstudio
 
-        tblEstudiantesBN.setModel(modelo);
+        // Paso 3: Ajustar el ancho de las columnas para una mejor visualización
+        tblEstudiantesBN.getColumnModel().getColumn(0).setPreferredWidth(80);  // IdAlumno
+        tblEstudiantesBN.getColumnModel().getColumn(1).setPreferredWidth(100); // DNI
+        tblEstudiantesBN.getColumnModel().getColumn(2).setPreferredWidth(100); // IdMatricula
+        tblEstudiantesBN.getColumnModel().getColumn(3).setPreferredWidth(200); // NombreCompleto
+        tblEstudiantesBN.getColumnModel().getColumn(4).setPreferredWidth(150); // NombreProgramaEstudio
+        tblEstudiantesBN.getColumnModel().getColumn(5).setPreferredWidth(100); // IdPeriodoAcademico
+
+       // tblEstudiantesBN.setModel(modelo);
     }
 
     // Método de búsqueda del estudiante por DNI al hacer clic en el botón
     public void buscarEstudiantePorDni() {
-        String dni = txtDni.getText().trim();
-        
+        String dni = txtDniBN.getText().trim();
+
         if (!dni.isEmpty()) {
-            CargarEstudianteBN(dni);
+            List<BoletaNotasControlador> CargarEsBN = estudiantesBNs.CargarEstudianteBN(dni);
+            modelo = (DefaultTableModel) tblEstudiantesBN.getModel();
+            modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+            Object[] ob = new Object[6];
+
+            for (BoletaNotasControlador estudianteBN : CargarEsBN) {
+                ob[0] = estudianteBN.getIdAlumnoBN();
+                ob[1] = estudianteBN.getDni();
+                ob[2] = estudianteBN.getIdMatriculaBN();
+                ob[3] = estudianteBN.getNombreCompletoBN();
+                ob[4] = estudianteBN.getNombreProgramaEstudioBN();
+                ob[5] = estudianteBN.getIdPeriodoAcademicoBN();
+                modelo.addRow(ob);
+            }
+
+            tblEstudiantesBN.setModel(modelo);
+
+            if (CargarEsBN.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún estudiante con el DNI especificado.");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un DNI válido.");
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un DNI válido.");
         }
     }
 //FUNCIONA
+
     public void LimpiarTabla() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);
@@ -310,7 +342,7 @@ public class Sistema extends javax.swing.JFrame {
         txtAneoPeriodoLectivo.setText("");
         txtNumeroPeriodoLectivo.setText("");
     }
-    
+
     private void LimpiarMatricula() {
         txtIdMatricula.setText("");
         txtIdAlumnoMatricula.setText("");
@@ -323,7 +355,7 @@ public class Sistema extends javax.swing.JFrame {
         txtPeriodoLectivoMatricula.setText("");
         txtIdAulaMatricula.setText("");
     }
-    
+
     private void LimpiarNotas() {
         txtIdNotas.setText("");
         txtIdMatriculaNotas.setText("");
@@ -331,9 +363,9 @@ public class Sistema extends javax.swing.JFrame {
         txtNombreUnidadDidacticaNotas.setText("");
         txtNotas.setText("");
         txtFehcaRegistroNotas.setText("");
-        
+
     }
-    
+
     public JButton getBtnBoletaNotas() {
         return BtnBoletaNotas;
     }
@@ -749,7 +781,7 @@ public class Sistema extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -768,6 +800,9 @@ public class Sistema extends javax.swing.JFrame {
         });
         jScrollPane15.setViewportView(tblEstudiantesBN);
         tblEstudiantesBN.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblEstudiantesBN.getColumnModel().getColumnCount() > 0) {
+            tblEstudiantesBN.getColumnModel().getColumn(3).setCellRenderer(null);
+        }
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -832,6 +867,7 @@ public class Sistema extends javax.swing.JFrame {
         jScrollPane14.setViewportView(tblUsuarios1);
         tblUsuarios1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (tblUsuarios1.getColumnModel().getColumnCount() > 0) {
+            tblUsuarios1.getColumnModel().getColumn(3).setCellRenderer(null);
             tblUsuarios1.getColumnModel().getColumn(6).setHeaderValue("Celular");
             tblUsuarios1.getColumnModel().getColumn(7).setHeaderValue("Nivel Acceso");
         }
@@ -1580,7 +1616,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(JpUnidadesDidacticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -1854,7 +1890,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(JpNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -2574,6 +2610,7 @@ public class Sistema extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblUsuarios);
         tblUsuarios.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (tblUsuarios.getColumnModel().getColumnCount() > 0) {
+            tblUsuarios.getColumnModel().getColumn(3).setCellRenderer(null);
             tblUsuarios.getColumnModel().getColumn(6).setHeaderValue("Celular");
             tblUsuarios.getColumnModel().getColumn(7).setHeaderValue("Nivel Acceso");
         }
@@ -2842,7 +2879,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEstudianteMouseClicked
 
     private void BtnBoletaNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBoletaNotasActionPerformed
-        jTabbedPane1.setSelectedIndex(0);        
+        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_BtnBoletaNotasActionPerformed
 
     private void BtnProgramaEstudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnProgramaEstudioActionPerformed
@@ -3750,12 +3787,12 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarMatriculaActionPerformed
 
     private void btnModificarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarMatriculaActionPerformed
-                // Verificar que todos los campos estén llenos
+        // Verificar que todos los campos estén llenos
         if (!"".equals(txtIdMatricula.getText().trim())
                 && !"".equals(txtIdPEMatricula.getText().trim())
                 //&& !"".equals(txtIdProgramaEstudiosMatricula.getText().trim())
-                && !"".equals(txtPeriodoLectivoMatricula.getText().trim()) 
-                && !"".equals(txtIdAulaMatricula.getText().trim())){
+                && !"".equals(txtPeriodoLectivoMatricula.getText().trim())
+                && !"".equals(txtIdAulaMatricula.getText().trim())) {
 
             // Obtener datos ingresados
             String IdMatriculaMat = txtIdMatricula.getText().trim();
@@ -3763,14 +3800,14 @@ public class Sistema extends javax.swing.JFrame {
             String PerdioLectivoMatricula = txtPeriodoLectivoMatricula.getText().trim();
             String AulaMatricula = txtIdAulaMatricula.getText().trim();
 
-           // Cargar datos en el objeto `Matricula`
+            // Cargar datos en el objeto `Matricula`
             matricula.setIdMatricula(IdMatriculaMat);
             matricula.setIdProgramaEstudioMatricula(IdProgramaEstudio);
             matricula.setIdPeriodoLectivoMatricula(PerdioLectivoMatricula);
             matricula.setIdAulaMatricula(AulaMatricula);
 
             try {
-                 matriculas.ModificarMatricula(matricula);
+                matriculas.ModificarMatricula(matricula);
                 LimpiarTabla();
                 LimpiarMatricula();
                 CargarMatricula();
@@ -3838,7 +3875,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarNotasMouseClicked
 
     private void btnGuardarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNotasActionPerformed
-    // Verificar que todos los campos estén llenos
+        // Verificar que todos los campos estén llenos
         if (!"".equals(txtIdMatriculaNotas.getText().trim())
                 && !"".equals(txtIdUnidaDidacticaNotas.getText().trim())
                 && !"".equals(txtNotas.getText().trim())) {
@@ -3857,7 +3894,7 @@ public class Sistema extends javax.swing.JFrame {
 
             // Guardar los datos de la Matricula
             notas.RegistrarNota(nota);
-            
+
             // Limpiar tabla y formularios
             LimpiarTabla();
             LimpiarNotas();
@@ -3871,10 +3908,10 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarNotasActionPerformed
 
     private void btnModificarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarNotasActionPerformed
-                    // Verificar que todos los campos estén llenos
+        // Verificar que todos los campos estén llenos
         if (!"".equals(txtIdMatriculaNotas.getText().trim())
                 && !"".equals(txtIdUnidaDidacticaNotas.getText().trim())
-                && !"".equals(txtNotas.getText().trim())){
+                && !"".equals(txtNotas.getText().trim())) {
 
             // Obtener datos ingresados
             String IdMatriculaNotas = txtIdMatriculaNotas.getText().trim();
@@ -3882,15 +3919,15 @@ public class Sistema extends javax.swing.JFrame {
             int notaob = Integer.parseInt(txtNotas.getText().trim());
             int IdNota = Integer.parseInt(txtIdNotas.getText().trim());
             String FechaRegistro = txtFehcaRegistroNotas.getText().trim();
-           // Cargar datos en el objeto `Matricula`
+            // Cargar datos en el objeto `Matricula`
             nota.setIdMatricula(IdMatriculaNotas);
             nota.setIdUnidadDidactica(IdUnidadDidacticaNotas);
             nota.setNota(notaob);
             nota.setIdNota(IdNota);
             nota.setFechaRegistro(FechaRegistro);
-            
+
             try {
-                 notas.ModificarNota(nota);
+                notas.ModificarNota(nota);
                 LimpiarTabla();
                 LimpiarNotas();
                 CargarNotas();
@@ -3911,18 +3948,18 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarNotasActionPerformed
 
     private void tblNotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNotasMouseClicked
-    int fila = tblNotas.rowAtPoint(evt.getPoint());
+        int fila = tblNotas.rowAtPoint(evt.getPoint());
         txtIdNotas.setText(tblNotas.getValueAt(fila, 0).toString());
         txtIdMatriculaNotas.setText(tblNotas.getValueAt(fila, 1).toString());
         txtIdUnidaDidacticaNotas.setText(tblNotas.getValueAt(fila, 2).toString());
         txtNombreUnidadDidacticaNotas.setText(tblNotas.getValueAt(fila, 3).toString());
         txtNotas.setText(tblNotas.getValueAt(fila, 4).toString());
         txtFehcaRegistroNotas.setText(tblNotas.getValueAt(fila, 5).toString());
-        
+
     }//GEN-LAST:event_tblNotasMouseClicked
 
     private void btnBuscarBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBNActionPerformed
-    buscarEstudiantePorDni(); // Llamada al método de búsqueda
+        buscarEstudiantePorDni(); // Llamada al método de búsqueda
     }//GEN-LAST:event_btnBuscarBNActionPerformed
 
     private void tblUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarios1MouseClicked
@@ -3934,36 +3971,36 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_tblEstudiantesBNMouseClicked
 
     public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ClassNotFoundException ex) {
-        java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-        java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-        java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        java.util.logging.Logger.getLogger(Sistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
+        //</editor-fold>
 
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new Sistema().setVisible(true);
-        }
-    });
-}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Sistema().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBoletaNotas;
