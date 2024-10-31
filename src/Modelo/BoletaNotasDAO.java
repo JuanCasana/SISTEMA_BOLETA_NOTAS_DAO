@@ -34,11 +34,10 @@ public class BoletaNotasDAO {
                 estudianteBN.setNombreCompletoBN(rs.getString("NombreCompleto"));
                 estudianteBN.setNombreProgramaEstudioBN(rs.getString("NombreProgramaEstudio"));
                 estudianteBN.setIdPeriodoAcademicoBN(rs.getString("IdPeriodoAcademico"));
-
                 ListaEstudianteBN.add(estudianteBN);
             }
         } catch (SQLException e) {
-            System.err.println("Error al ejecutar la consulta: " + e.getMessage());
+            System.out.println("Error en CargarEstudianteBN: " + e.toString());
         }
         return ListaEstudianteBN;
     }
