@@ -216,7 +216,25 @@ public class Sistema extends javax.swing.JFrame {
         tblNotas.setModel(modelo);
     }
     
-
+// public void CargarEstudianteBN() {
+//     String dni = txtDni.getText().trim(); // Obtener el DNI del campo de texto   
+//     List<BoletaNotasControlador> CargarEsBN = estudiantesBNs.CargarEstudianteBN(dni);
+//        modelo = (DefaultTableModel) tblEstudiantesBN.getModel();
+//        modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+//        Object[] ob = new Object[6];
+//        for (int i = 0; i < CargarEsBN.size(); i++) {
+//            ob[0] = CargarEsBN.get(i).getIdAlumnoBN();
+//            ob[1] = CargarEsBN.get(i).getDni();
+//            ob[2] = CargarEsBN.get(i).getIdMatriculaBN();
+//            ob[3] = CargarEsBN.get(i).getNombreCompletoBN();
+//            ob[4] = CargarEsBN.get(i).getNombreProgramaEstudioBN();
+//            ob[5] = CargarEsBN.get(i).getIdPeriodoAcademicoBN();
+//
+//            modelo.addRow(ob);
+//
+//        }
+//        //tblEstudiantesBN.setModel(modelo);
+// }
     public void buscarEstudiantePorDni() {
         String dni = txtDni.getText().trim(); // Obtener el DNI del campo de texto
         if (!dni.isEmpty()) {
@@ -224,7 +242,8 @@ public class Sistema extends javax.swing.JFrame {
             List<BoletaNotasControlador> CargarEsBN = estudiantesBNs.CargarEstudianteBN(dni);
             modelo = (DefaultTableModel) tblEstudiantesBN.getModel();
             modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
-
+            
+            if (!CargarEsBN.isEmpty()) {    
             Object[] ob = new Object[6];
             for (BoletaNotasControlador estudianteBN : CargarEsBN) {
                 ob[0] = estudianteBN.getIdAlumnoBN();
@@ -234,12 +253,15 @@ public class Sistema extends javax.swing.JFrame {
                 ob[4] = estudianteBN.getNombreProgramaEstudioBN();
                 ob[5] = estudianteBN.getIdPeriodoAcademicoBN();
                 modelo.addRow(ob);
+            } 
             }
-
-            tblEstudiantesBN.setModel(modelo);
+            else {
+            JOptionPane.showMessageDialog(null, "No se encontró el estudiante con DNI: " + dni);
+        }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un DNI válido.");
         }
+                    tblEstudiantesBN.setModel(modelo);
     }
 //FUNCIONA
     public void LimpiarTabla() {
@@ -2838,6 +2860,8 @@ public class Sistema extends javax.swing.JFrame {
 
     private void BtnBoletaNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBoletaNotasActionPerformed
         jTabbedPane1.setSelectedIndex(0);
+        buscarEstudiantePorDni();
+        
     }//GEN-LAST:event_BtnBoletaNotasActionPerformed
 
     private void BtnProgramaEstudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnProgramaEstudioActionPerformed

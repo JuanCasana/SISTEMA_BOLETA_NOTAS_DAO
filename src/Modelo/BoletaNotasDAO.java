@@ -38,7 +38,7 @@ public class BoletaNotasDAO {
                 ListaEstudianteBN.add(estudianteBN);
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            System.err.println("Error al ejecutar la consulta: " + e.getMessage());
         }
         return ListaEstudianteBN;
     }
