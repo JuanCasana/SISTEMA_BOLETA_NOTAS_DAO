@@ -1,4 +1,4 @@
-﻿--Entidades y Atributos
+--Entidades y Atributos
 /*	1. Usuario
 		▲ IdUsuario (Primary Key)
 		▲ Dni int (Unique) (El Dni va ser el username)
@@ -238,6 +238,7 @@ JOIN
 
 
 	SELECT * FROM VistaNotasConUnidad;
+	SELECT * FROM Matricula;
 
 
 -- 1. Insertar datos en la tabla Usuario
@@ -329,6 +330,14 @@ VALUES
 ('AP3UDG', 'Programación Visual', 7, 4, 'AP', 'MAP2');
  Select *From UnidadDidactica;
 
+ INSERT INTO UnidadDidactica (IdUnidadDidactica, NombreUnidadDidactica, HorasUnidadDidactica, CreditosUnidadDidactica, IdProgramaEstudios, IdModulo)
+VALUES
+('AP4UDA', ' Administración de Base de Datos', 7, 4, 'AP', 'MAP2');
+ Select *From UnidadDidactica;
+
+ INSERT INTO Notas (IdMatricula, IdUnidadDidactica, Nota)
+VALUES
+('11111111-AP-IV','AP4UDA',15);
 -- 9. Insertar datos en la tabla Matricula
 INSERT INTO Matricula (IdMatricula, IdAlumno, IdProgramaEstudio, IdPeriodoLectivo, IdAula)
 VALUES
@@ -340,8 +349,16 @@ VALUES
 ('60044651-AP-III', '60044651-2023', 'AP', '2024-1', 'AP2024-1'),
 ('71640187-AP-III', '71640187-2023', 'AP', '2024-1', 'AP2024-1')
 ;
+INSERT INTO Matricula (IdMatricula, IdAlumno, IdProgramaEstudio, IdPeriodoLectivo, IdAula)
+VALUES
+('11111111-AP-IV', '11111111-2025', 'AP', '2024-2', 'AP2024-2');
+
+SELECT * FROM Alumno
+
 Select *From Matricula;
-SELECT * FROM Notas WHERE IdMatricula='71640029-AP-III';
+SELECT * FROM Notas WHERE IdMatricula='11111111-AP-IV';
+
+SELECT * FROM Notas
 
 -- 10. Insertar datos en la tabla Notas
 INSERT INTO Notas (IdMatricula, IdUnidadDidactica, Nota)
@@ -412,6 +429,22 @@ SELECT
     U.CreditosUnidadDidactica,  -- Aquí agregamos el número de créditos
     N.Nota, 
     N.FechaRegistro
+FROM 
+    Alumno A
+    JOIN Matricula M ON A.IdAlumno = M.IdAlumno
+    JOIN ProgramaEstudios P ON M.IdProgramaEstudio = P.IdProgramaEstudio
+    JOIN PeriodoLectivo PL ON M.IdPeriodoLectivo = PL.IdPeriodoLectivo
+    JOIN Notas N ON M.IdMatricula = N.IdMatricula
+    JOIN UnidadDidactica U ON N.IdUnidadDidactica = U.IdUnidadDidactica
+WHERE 
+    A.Dni = '71640029';  -- Cambia por el DNI del alumno específico
+
+
+SELECT 
+    ROW_NUMBER() OVER (ORDER BY U.NombreUnidadDidactica) AS Correlativo, -- Número correlativo
+    U.NombreUnidadDidactica, 
+    U.CreditosUnidadDidactica, 
+    N.Nota
 FROM 
     Alumno A
     JOIN Matricula M ON A.IdAlumno = M.IdAlumno
@@ -654,3 +687,54 @@ SELECT * FROM VistaAlumnoMatricula WHERE Dni = '60044651';  -- Reemplaza 'DNI_DE
 
 
 SELECT * FROM VistaAlumnoMatricula WHERE Dni = '60044651';
+
+
+SELECT * FROM ProgramaEstudios;
+SELECT * FROM Alumno;
+SELECT * FROM Matricula;
+
+INSERT INTO Notas (IdMatricula, IdUnidadDidactica, Nota)
+VALUES
+('11111111-AP-II','AP4UDA',10);
+
+
+drop view VistaUnidadesDidacticasNotas;
+
+CREATE VIEW VistaUnidadesDidacticasNotas AS 
+SELECT 
+    ROW_NUMBER() OVER (PARTITION BY M.IdMatricula ORDER BY U.NombreUnidadDidactica) AS Correlativo, 
+    M.IdMatricula,  -- Cambia esto para incluir idmatricula en la selección
+    A.Dni,
+    U.NombreUnidadDidactica, 
+    U.CreditosUnidadDidactica, 
+    N.Nota
+FROM 
+    Alumno A
+    JOIN Matricula M ON A.IdAlumno = M.IdAlumno
+    JOIN Notas N ON M.IdMatricula = N.IdMatricula
+    JOIN UnidadDidactica U ON N.IdUnidadDidactica = U.IdUnidadDidactica;
+
+
+	SELECT * FROM VistaUnidadesDidacticasNotas WHERE IdMatricula = '11111111-AP-IV';  -- Cambia '12345' por el idmatricula correspondiente
+
+	drop VIEW VistaUnidadesDidacticasNotas
+	CREATE VIEW  AS 
+SELECT 
+    ROW_NUMBER() OVER (PARTITION BY M.IdMatricula ORDER BY U.NombreUnidadDidactica) AS Correlativo, 
+    M.IdMatricula,  
+    A.Dni,
+    U.NombreUnidadDidactica, 
+    U.CreditosUnidadDidactica, 
+    N.Nota,
+    M.IdPeriodoLectivo  -- Agregar el campo del periodo lectivo
+FROM 
+    Alumno A
+    JOIN Matricula M ON A.IdAlumno = M.IdAlumno
+    JOIN Notas N ON M.IdMatricula = N.IdMatricula
+    JOIN UnidadDidactica U ON N.IdUnidadDidactica = U.IdUnidadDidactica;
+
+
+	SELECT * FROM VistaUnidadesDidacticasNotas WHERE IdMatricula = '60044651-AP-III';  -- Cambia '12345' por el idmatricula correspondiente
+	SELECT * FROM Matricula
+
+	SELECT * FROM VistaUnidadesDidacticasNotas WHERE idMatricula = '60044651-AP-III';
