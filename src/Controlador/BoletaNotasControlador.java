@@ -14,11 +14,9 @@ public class BoletaNotasControlador {
     private String NombreUDBN;
     private String CreditoUDBN;
     private String NotasUDBN;
+    private String PerioLectiBN;
 
-    public BoletaNotasControlador() {
-    }
-
-    public BoletaNotasControlador(String Dni, String IdAlumnoBN, String IdMatriculaBN, String NombreProgramaEstudioBN, String IdPeriodoAcademicoBN, String NombreCompletoBN, String correlativo, String DniNotaBN, String NombreUDBN, String CreditoUDBN, String NotasUDBN) {
+    public BoletaNotasControlador(String Dni, String IdAlumnoBN, String IdMatriculaBN, String NombreProgramaEstudioBN, String IdPeriodoAcademicoBN, String NombreCompletoBN, String correlativo, String DniNotaBN, String NombreUDBN, String CreditoUDBN, String NotasUDBN, String PerioLectiBN) {
         this.Dni = Dni;
         this.IdAlumnoBN = IdAlumnoBN;
         this.IdMatriculaBN = IdMatriculaBN;
@@ -30,6 +28,18 @@ public class BoletaNotasControlador {
         this.NombreUDBN = NombreUDBN;
         this.CreditoUDBN = CreditoUDBN;
         this.NotasUDBN = NotasUDBN;
+        this.PerioLectiBN = PerioLectiBN;
+    }
+
+    public String getPerioLectiBN() {
+        return PerioLectiBN;
+    }
+
+    public void setPerioLectiBN(String PerioLectiBN) {
+        this.PerioLectiBN = PerioLectiBN;
+    }
+
+    public BoletaNotasControlador() {
     }
 
     public String getDni() {

@@ -34,6 +34,7 @@ public class BoletaNotasDAO {
                 estudianteBN.setNombreCompletoBN(rs.getString("NombreCompleto"));
                 estudianteBN.setNombreProgramaEstudioBN(rs.getString("NombreProgramaEstudio"));
                 estudianteBN.setIdPeriodoAcademicoBN(rs.getString("IdPeriodoAcademico"));
+                //estudianteBN.setPerioLectiBN(rs.getString("IdPeriodoLectivo"));
                 ListaEstudianteBN.add(estudianteBN);
             }
         } catch (SQLException e) {
@@ -42,27 +43,34 @@ public class BoletaNotasDAO {
         return ListaEstudianteBN;
     }
 
-    public List CargarNotasBN(){
-        List<BoletaNotasControlador> ListaNotasBN = new ArrayList<>();
+    public List<BoletaNotasControlador> CargarNotasBN(String idMatricula) {
+    List<BoletaNotasControlador> ListaNotasBN = new ArrayList<>();
+    
+    String sql = "SELECT * FROM VistaUnidadesDidacticasNotas WHERE idMatricula = ?;";
+    try {
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
         
-        String sql = "SELECT * FROM VistaUnidadesDidacticasNotas WHERE Dni = ?;  ";
-        try {
-            con = cn.getConnection();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {                
-                BoletaNotasControlador estudianteBN = new BoletaNotasControlador();
-                estudianteBN.setCorrelativo(rs.getString("Correlativo"));
-                estudianteBN.setDniNotaBN(rs.getString("Dni"));
-                estudianteBN.setNombreUDBN(rs.getString("NombreUnidadDidactica"));
-                estudianteBN.setCreditoUDBN(rs.getString("CreditosUnidadDidactica"));
-                estudianteBN.setNotasUDBN(rs.getString("Nota"));
-                
-                ListaNotasBN.add(estudianteBN);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.toString());
+        // Establece el valor del parámetro DNI
+        ps.setString(1, idMatricula);  // Asumiendo que 'dni' es el valor que quieres pasar
+
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            BoletaNotasControlador estudianteBN = new BoletaNotasControlador();
+            estudianteBN.setDniNotaBN(rs.getString("Dni"));
+            estudianteBN.setCorrelativo(rs.getString("Correlativo"));
+            estudianteBN.setNombreUDBN(rs.getString("NombreUnidadDidactica"));
+            estudianteBN.setCreditoUDBN(rs.getString("CreditosUnidadDidactica"));
+            estudianteBN.setNotasUDBN(rs.getString("Nota"));
+            //estudianteBN.setPerioLectiBN(rs.getString("IdPeriodoLectivo"));
+            
+            ListaNotasBN.add(estudianteBN);
         }
-        return ListaNotasBN;
+    } catch (SQLException e) {
+        System.out.println(e.toString());
+    } finally {
     }
+    return ListaNotasBN;
+}
+
 }
