@@ -302,6 +302,23 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un DNI válido.");
         }
     }
+    
+    public void CargarNotasBN() {
+        List<BoletaNotasControlador> CargarNotaBn = estudiantesBNs.CargarNotasBN();
+        modelo = (DefaultTableModel) tblNotasBN.getModel();
+        Object[] ob = new Object[9];
+        for (int i = 0; i < CargarNotaBn.size(); i++) {
+            ob[0] = CargarNotaBn.get(i).getCorrelativo();
+            ob[1] = CargarNotaBn.get(i).getNombreProgramaEstudioBN();
+            ob[2] = CargarNotaBn.get(i).getCreditoUDBN();
+            ob[3] = CargarNotaBn.get(i).getNotasUDBN();
+
+            modelo.addRow(ob);
+        }
+        tblNotasBN.setModel(modelo);
+    }
+    
+    
 //FUNCIONA
 
     public void LimpiarTabla() {
@@ -457,9 +474,11 @@ public class Sistema extends javax.swing.JFrame {
         tblEstudiantesBN = new javax.swing.JTable();
         btnVerNotasBN = new javax.swing.JButton();
         btnBuscarBN2 = new javax.swing.JButton();
+        txtIdMatriculaBN = new javax.swing.JTextField();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        tblUsuarios1 = new javax.swing.JTable();
+        tblNotasBN = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
         JpEstudiantes = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -854,6 +873,11 @@ public class Sistema extends javax.swing.JFrame {
         btnVerNotasBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnVerNotasBN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ordenx32.png"))); // NOI18N
         btnVerNotasBN.setText("Ver Notas");
+        btnVerNotasBN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVerNotasBNMouseClicked(evt);
+            }
+        });
         btnVerNotasBN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerNotasBNActionPerformed(evt);
@@ -886,10 +910,15 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jScrollPane15)
                 .addContainerGap())
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(btnVerNotasBN)
-                .addGap(76, 76, 76)
-                .addComponent(btnBuscarBN2)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(btnVerNotasBN)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnBuscarBN2))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
@@ -902,26 +931,28 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jLabel68))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(18, 18, 18)
+                .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerNotasBN)
                     .addComponent(btnBuscarBN2))
                 .addGap(208, 208, 208))
         );
 
-        tblUsuarios1.setModel(new javax.swing.table.DefaultTableModel(
+        tblNotasBN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Dni", "Apellido Paterno", "Apellido Materno", "Nombres", "Email", "Celular", "Nivel Acceso"
+                "N°", "Unidad Didáctica", "Creditos", "Nota"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -932,33 +963,17 @@ public class Sistema extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblUsuarios1.setRowHeight(30);
-        tblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblNotasBN.setColumnSelectionAllowed(true);
+        tblNotasBN.setRowHeight(30);
+        tblNotasBN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblUsuarios1MouseClicked(evt);
+                tblNotasBNMouseClicked(evt);
             }
         });
-        jScrollPane14.setViewportView(tblUsuarios1);
-        tblUsuarios1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tblUsuarios1.getColumnModel().getColumnCount() > 0) {
-            tblUsuarios1.getColumnModel().getColumn(0).setMinWidth(100);
-            tblUsuarios1.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblUsuarios1.getColumnModel().getColumn(0).setMaxWidth(100);
-            tblUsuarios1.getColumnModel().getColumn(1).setMinWidth(65);
-            tblUsuarios1.getColumnModel().getColumn(1).setPreferredWidth(65);
-            tblUsuarios1.getColumnModel().getColumn(1).setMaxWidth(65);
-            tblUsuarios1.getColumnModel().getColumn(2).setMinWidth(100);
-            tblUsuarios1.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tblUsuarios1.getColumnModel().getColumn(2).setMaxWidth(100);
-            tblUsuarios1.getColumnModel().getColumn(3).setMinWidth(130);
-            tblUsuarios1.getColumnModel().getColumn(3).setPreferredWidth(130);
-            tblUsuarios1.getColumnModel().getColumn(3).setMaxWidth(130);
-            tblUsuarios1.getColumnModel().getColumn(4).setMinWidth(200);
-            tblUsuarios1.getColumnModel().getColumn(4).setPreferredWidth(200);
-            tblUsuarios1.getColumnModel().getColumn(4).setMaxWidth(200);
-            tblUsuarios1.getColumnModel().getColumn(6).setHeaderValue("Celular");
-            tblUsuarios1.getColumnModel().getColumn(7).setHeaderValue("Nivel Acceso");
-        }
+        jScrollPane14.setViewportView(tblNotasBN);
+        tblNotasBN.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        jTextField1.setText("jTextField1");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -966,12 +981,18 @@ public class Sistema extends javax.swing.JFrame {
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(242, 242, 242))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout JpBoletaNotasLayout = new javax.swing.GroupLayout(JpBoletaNotas);
@@ -4064,12 +4085,15 @@ public class Sistema extends javax.swing.JFrame {
         buscarEstudiantePorDni(); // Llamada al método de búsqueda
     }//GEN-LAST:event_btnBuscarBNActionPerformed
 
-    private void tblUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarios1MouseClicked
+    private void tblNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNotasBNMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblUsuarios1MouseClicked
+    }//GEN-LAST:event_tblNotasBNMouseClicked
 
     private void tblEstudiantesBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudiantesBNMouseClicked
-        // TODO add your handling code here:
+        int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
+        
+        txtIdMatriculaBN.setText(tblEstudiantesBN.getValueAt(fila, 2).toString());
+
     }//GEN-LAST:event_tblEstudiantesBNMouseClicked
 
     private void btnVerNotasBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerNotasBNActionPerformed
@@ -4079,6 +4103,10 @@ public class Sistema extends javax.swing.JFrame {
     private void btnBuscarBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBN2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarBN2ActionPerformed
+
+    private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked
+    CargarNotasBN();
+    }//GEN-LAST:event_btnVerNotasBNMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -4251,6 +4279,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton rbAdm;
     private javax.swing.JRadioButton rbAsist;
     private javax.swing.JRadioButton rbFemenino;
@@ -4259,11 +4288,11 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable tblEstudiantesBN;
     private javax.swing.JTable tblMatricula;
     private javax.swing.JTable tblNotas;
+    private javax.swing.JTable tblNotasBN;
     private javax.swing.JTable tblPeriodoLectivo;
     private javax.swing.JTable tblProgramaEstudios;
     private javax.swing.JTable tblUnidadesDidacticas;
     private javax.swing.JTable tblUsuarios;
-    private javax.swing.JTable tblUsuarios1;
     private javax.swing.JTextField txtAneoIngresoAlumno;
     private javax.swing.JTextField txtAneoPeriodoLectivo;
     private javax.swing.JTextField txtApMaterno;
@@ -4288,6 +4317,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdAlumnoMatricula;
     private javax.swing.JTextField txtIdAulaMatricula;
     private javax.swing.JTextField txtIdMatricula;
+    private javax.swing.JTextField txtIdMatriculaBN;
     private javax.swing.JTextField txtIdMatriculaNotas;
     private javax.swing.JTextField txtIdModulo;
     private javax.swing.JTextField txtIdNotas;

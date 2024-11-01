@@ -8,17 +8,28 @@ public class BoletaNotasControlador {
     private String NombreProgramaEstudioBN;
     private String IdPeriodoAcademicoBN;
     private String NombreCompletoBN;
+    
+    private String correlativo;
+    private String DniNotaBN;
+    private String NombreUDBN;
+    private String CreditoUDBN;
+    private String NotasUDBN;
 
     public BoletaNotasControlador() {
     }
 
-    public BoletaNotasControlador(String Dni, String IdAlumnoBN, String IdMatriculaBN, String NombreProgramaEstudioBN, String IdPeriodoAcademicoBN, String NombreCompletoBN) {
+    public BoletaNotasControlador(String Dni, String IdAlumnoBN, String IdMatriculaBN, String NombreProgramaEstudioBN, String IdPeriodoAcademicoBN, String NombreCompletoBN, String correlativo, String DniNotaBN, String NombreUDBN, String CreditoUDBN, String NotasUDBN) {
         this.Dni = Dni;
         this.IdAlumnoBN = IdAlumnoBN;
         this.IdMatriculaBN = IdMatriculaBN;
         this.NombreProgramaEstudioBN = NombreProgramaEstudioBN;
         this.IdPeriodoAcademicoBN = IdPeriodoAcademicoBN;
         this.NombreCompletoBN = NombreCompletoBN;
+        this.correlativo = correlativo;
+        this.DniNotaBN = DniNotaBN;
+        this.NombreUDBN = NombreUDBN;
+        this.CreditoUDBN = CreditoUDBN;
+        this.NotasUDBN = NotasUDBN;
     }
 
     public String getDni() {
@@ -68,6 +79,46 @@ public class BoletaNotasControlador {
     public void setNombreCompletoBN(String NombreCompletoBN) {
         this.NombreCompletoBN = NombreCompletoBN;
     }
-    
+
+    public String getCorrelativo() {
+        return correlativo;
+    }
+
+    public void setCorrelativo(String correlativo) {
+        this.correlativo = correlativo;
+    }
+
+    public String getDniNotaBN() {
+        return DniNotaBN;
+    }
+
+    public void setDniNotaBN(String DniNotaBN) {
+        this.DniNotaBN = DniNotaBN;
+    }
+
+    public String getNombreUDBN() {
+        return NombreUDBN;
+    }
+
+    public void setNombreUDBN(String NombreUDBN) {
+        this.NombreUDBN = NombreUDBN;
+    }
+
+    public String getCreditoUDBN() {
+        return CreditoUDBN;
+    }
+
+    public void setCreditoUDBN(String CreditoUDBN) {
+        this.CreditoUDBN = CreditoUDBN;
+    }
+
+    public String getNotasUDBN() {
+        return NotasUDBN;
+    }
+
+    public void setNotasUDBN(String NotasUDBN) {
+        this.NotasUDBN = NotasUDBN;
+    }
+
     
 }
