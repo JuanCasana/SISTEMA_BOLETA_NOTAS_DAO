@@ -290,7 +290,7 @@ public class Sistema extends javax.swing.JFrame {
 
                 ob[4] = "<html>" + nombreDividido + "</html>"; // Nombre del programa en 2 líneas
                 ob[5] = estudianteBN.getIdPeriodoAcademicoBN();
-                //ob[6] = estudianteBN.getPerioLectiBN();
+                ob[6] = estudianteBN.getPerioLectiBN();
 
                 modelo.addRow(ob);
             }
@@ -408,8 +408,8 @@ public class Sistema extends javax.swing.JFrame {
         txtFehcaRegistroNotas.setText("");
 
     }
-    
-        private void LimpiarEstudiantesBN() {
+
+    private void LimpiarEstudiantesBN() {
         //txtDniBN.setText("");
         txtIdMatriculaBN.setText("");
     }
@@ -491,6 +491,20 @@ public class Sistema extends javax.swing.JFrame {
         txtAProgramaEstudiosBN = new javax.swing.JTextArea();
         jLabel71 = new javax.swing.JLabel();
         txtPeriodoAcadeBN = new javax.swing.JTextField();
+        jLabel72 = new javax.swing.JLabel();
+        txtPeriodoLectBN = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtTotalCreditosPeriodoBN = new javax.swing.JTextField();
+        txtPuntajeTotalObtBN1 = new javax.swing.JTextField();
+        txtPromedioGeneralBN2 = new javax.swing.JTextField();
+        txtOrdenMeritoBN3 = new javax.swing.JTextField();
+        txtCreditosAprobadosBN = new javax.swing.JTextField();
+        txtCreditosDesaprobadosBN5 = new javax.swing.JTextField();
         JpEstudiantes = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -832,14 +846,14 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id Alumno", "Dni", "Id Matricula", "Nombre Completo", "Programa de Estudios", "Per. Acad"
+                "Id Alumno", "Dni", "Id Matricula", "Nombre Completo", "Programa de Estudios", "Per. Acad", "Per. Lect."
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -874,12 +888,12 @@ public class Sistema extends javax.swing.JFrame {
             tblEstudiantesBN.getColumnModel().getColumn(2).setMinWidth(100);
             tblEstudiantesBN.getColumnModel().getColumn(2).setPreferredWidth(100);
             tblEstudiantesBN.getColumnModel().getColumn(2).setMaxWidth(100);
-            tblEstudiantesBN.getColumnModel().getColumn(3).setMinWidth(130);
-            tblEstudiantesBN.getColumnModel().getColumn(3).setPreferredWidth(130);
-            tblEstudiantesBN.getColumnModel().getColumn(3).setMaxWidth(130);
-            tblEstudiantesBN.getColumnModel().getColumn(4).setMinWidth(200);
-            tblEstudiantesBN.getColumnModel().getColumn(4).setPreferredWidth(200);
-            tblEstudiantesBN.getColumnModel().getColumn(4).setMaxWidth(200);
+            tblEstudiantesBN.getColumnModel().getColumn(3).setMinWidth(110);
+            tblEstudiantesBN.getColumnModel().getColumn(3).setPreferredWidth(110);
+            tblEstudiantesBN.getColumnModel().getColumn(3).setMaxWidth(110);
+            tblEstudiantesBN.getColumnModel().getColumn(4).setMinWidth(150);
+            tblEstudiantesBN.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tblEstudiantesBN.getColumnModel().getColumn(4).setMaxWidth(150);
         }
 
         btnVerNotasBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -914,7 +928,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtDniBN, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addComponent(btnBuscarBN)
                 .addGap(70, 70, 70)
                 .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -939,7 +953,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(txtDniBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel68)
                     .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerNotasBN)
@@ -948,7 +962,9 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(167, 167, 167))
         );
 
-        tblNotasBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel21.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tblNotasBN.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblNotasBN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -996,72 +1012,172 @@ public class Sistema extends javax.swing.JFrame {
         jLabel69.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel69.setText("Estudiante:");
 
+        txtNombreEstudianteBN.setEditable(false);
         txtNombreEstudianteBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel70.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel70.setText("Programa de Estudios:");
 
+        txtAProgramaEstudiosBN.setEditable(false);
         txtAProgramaEstudiosBN.setColumns(20);
         txtAProgramaEstudiosBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtAProgramaEstudiosBN.setLineWrap(true);
-        txtAProgramaEstudiosBN.setRows(5);
+        txtAProgramaEstudiosBN.setRows(1);
+        txtAProgramaEstudiosBN.setTabSize(2);
         txtAProgramaEstudiosBN.setAutoscrolls(false);
         jScrollPane13.setViewportView(txtAProgramaEstudiosBN);
 
         jLabel71.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel71.setText("Periodo Academico: ");
 
+        txtPeriodoAcadeBN.setEditable(false);
         txtPeriodoAcadeBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel72.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel72.setText("Periodo Lectivo: ");
+
+        txtPeriodoLectBN.setEditable(false);
+        txtPeriodoLectBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("<html>Total Créditos del <p>Periodo Académico</html>");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Créditos Aprobados:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Promedio General:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Créditos Desaprobados:");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setText("<html>Puntaje Total <p>Obtenido:</html>");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setText("Orden Merito:");
+
+        txtTotalCreditosPeriodoBN.setEditable(false);
+        txtTotalCreditosPeriodoBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtPuntajeTotalObtBN1.setEditable(false);
+        txtPuntajeTotalObtBN1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtPromedioGeneralBN2.setEditable(false);
+        txtPromedioGeneralBN2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtOrdenMeritoBN3.setEditable(false);
+        txtOrdenMeritoBN3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtCreditosAprobadosBN.setEditable(false);
+        txtCreditosAprobadosBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtCreditosDesaprobadosBN5.setEditable(false);
+        txtCreditosDesaprobadosBN5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPeriodoAcadeBN, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel72)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPeriodoLectBN, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                            .addComponent(txtNombreEstudianteBN)))
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel21Layout.createSequentialGroup()
-                                .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPeriodoAcadeBN, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPromedioGeneralBN2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel21Layout.createSequentialGroup()
+                                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
                                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-                                    .addComponent(txtNombreEstudianteBN)))))
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                                    .addGroup(jPanel21Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCreditosAprobadosBN, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtTotalCreditosPeriodoBN, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtOrdenMeritoBN3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCreditosDesaprobadosBN5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPuntajeTotalObtBN1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel69))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtNombreEstudianteBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(txtNombreEstudianteBN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel70)))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPeriodoAcadeBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel71))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jLabel71)
+                    .addComponent(txtPeriodoLectBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotalCreditosPeriodoBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCreditosAprobadosBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPromedioGeneralBN2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPuntajeTotalObtBN1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCreditosDesaprobadosBN5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtOrdenMeritoBN3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout JpBoletaNotasLayout = new javax.swing.GroupLayout(JpBoletaNotas);
@@ -1070,7 +1186,7 @@ public class Sistema extends javax.swing.JFrame {
             JpBoletaNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpBoletaNotasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
+                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1794,7 +1910,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(JpUnidadesDidacticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -2068,7 +2184,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(JpNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -2893,7 +3009,9 @@ public class Sistema extends javax.swing.JFrame {
         txtNombreModulo.setColumns(20);
         txtNombreModulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtNombreModulo.setLineWrap(true);
-        txtNombreModulo.setRows(5);
+        txtNombreModulo.setRows(3);
+        txtNombreModulo.setAutoscrolls(false);
+        txtNombreModulo.setBorder(null);
         jScrollPane5.setViewportView(txtNombreModulo);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -3075,7 +3193,7 @@ public class Sistema extends javax.swing.JFrame {
         LimpiarTabla();
         jTabbedPane1.setSelectedIndex(0);
         LimpiarEstudiantesBN();
-        
+
     }//GEN-LAST:event_BtnBoletaNotasActionPerformed
 
     private void BtnProgramaEstudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnProgramaEstudioActionPerformed
@@ -4164,19 +4282,28 @@ public class Sistema extends javax.swing.JFrame {
 
     private void tblEstudiantesBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudiantesBNMouseClicked
         int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
+        // Quita las etiquetas HTML al asignar el texto a los campos
+        String nombreEstudiante = tblEstudiantesBN.getValueAt(fila, 3).toString()
+                .replaceAll("<br>", " ")
+                .replaceAll("<[^>]*>", "");
+
+        String programaEstudios = tblEstudiantesBN.getValueAt(fila, 4).toString()
+                .replaceAll("<br>", " ")
+                .replaceAll("<[^>]*>", "");
 
         txtIdMatriculaBN.setText(tblEstudiantesBN.getValueAt(fila, 2).toString());
-        txtNombreEstudianteBN.setText(tblEstudiantesBN.getValueAt(fila, 3).toString());
-        txtAProgramaEstudiosBN.setText(tblEstudiantesBN.getValueAt(fila, 4).toString());
+        txtNombreEstudianteBN.setText(nombreEstudiante);
+        txtAProgramaEstudiosBN.setText(programaEstudios);
         txtPeriodoAcadeBN.setText(tblEstudiantesBN.getValueAt(fila, 5).toString());
-        
+        txtPeriodoLectBN.setText(tblEstudiantesBN.getValueAt(fila, 6).toString());
+
         String IdMatricula = txtIdMatriculaBN.getText(); // Obtener el DNI del campo de texto
         if (!IdMatricula.isEmpty()) { // Verifica que el DNI no esté vacío
             CargarNotasBN(IdMatricula); // Llama al método para cargar las notas
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, ingresa un DNI válido.");
         }
-        
+
         LimpiarTabla();
         LimpiarEstudiantesBN();
         CargarNotasBN(IdMatricula);
@@ -4192,7 +4319,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarBN2ActionPerformed
 
     private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked
-        
+
     }//GEN-LAST:event_btnVerNotasBNMouseClicked
 
     public static void main(String args[]) {
@@ -4290,6 +4417,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -4300,6 +4428,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -4310,6 +4439,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -4320,6 +4450,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
@@ -4329,10 +4460,13 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -4395,6 +4529,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCelularAlumno;
     private javax.swing.JTextField txtContrasenea;
+    private javax.swing.JTextField txtCreditosAprobadosBN;
+    private javax.swing.JTextField txtCreditosDesaprobadosBN5;
     private javax.swing.JTextField txtCreditosUnidadDidactica;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtDniAlumno;
@@ -4429,10 +4565,15 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombresMatricula;
     private javax.swing.JTextField txtNotas;
     private javax.swing.JTextField txtNumeroPeriodoLectivo;
+    private javax.swing.JTextField txtOrdenMeritoBN3;
     private javax.swing.JTextField txtPEUnidadDidactica;
     private javax.swing.JTextField txtPeriodoAcadeBN;
+    private javax.swing.JTextField txtPeriodoLectBN;
     private javax.swing.JTextField txtPeriodoLectivoMatricula;
     private javax.swing.JTextField txtProgramaEstudio;
+    private javax.swing.JTextField txtPromedioGeneralBN2;
+    private javax.swing.JTextField txtPuntajeTotalObtBN1;
+    private javax.swing.JTextField txtTotalCreditosPeriodoBN;
     // End of variables declaration//GEN-END:variables
 
 }

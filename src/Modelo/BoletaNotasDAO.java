@@ -34,7 +34,7 @@ public class BoletaNotasDAO {
                 estudianteBN.setNombreCompletoBN(rs.getString("NombreCompleto"));
                 estudianteBN.setNombreProgramaEstudioBN(rs.getString("NombreProgramaEstudio"));
                 estudianteBN.setIdPeriodoAcademicoBN(rs.getString("IdPeriodoAcademico"));
-                //estudianteBN.setPerioLectiBN(rs.getString("IdPeriodoLectivo"));
+                estudianteBN.setPerioLectiBN(rs.getString("IdPeriodoLectivo"));
                 ListaEstudianteBN.add(estudianteBN);
             }
         } catch (SQLException e) {
