@@ -73,7 +73,7 @@ public class Sistema extends javax.swing.JFrame {
         btnGrAlumno.add(rbMasculino);
         btnGrAlumno.add(rbFemenino);
         txtId.setVisible(false);
-        txtIdMatriculaBN.setVisible(false);
+        //txtIdMatriculaBN.setVisible(false);
 
     }
 
@@ -221,7 +221,7 @@ public class Sistema extends javax.swing.JFrame {
 // Método para cargar datos en la tabla a partir de la búsqueda
     public void CargarEstudianteBN(String dni) {
         List<BoletaNotasControlador> CargarEsBN = estudiantesBNs.CargarEstudianteBN(dni);
-        modelo = (DefaultTableModel) tblEstudiantesBN.getModel();
+        modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
         modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
         Object[] ob = new Object[6];
 
@@ -247,7 +247,7 @@ public class Sistema extends javax.swing.JFrame {
 //        tblEstudiantesBN.getColumnModel().getColumn(4).setPreferredWidth(150); // NombreProgramaEstudio
 //        tblEstudiantesBN.getColumnModel().getColumn(5).setPreferredWidth(100); // IdPeriodoAcademico
 
-        tblEstudiantesBN.setModel(modelo);
+        tblEstudianteDesemBN.setModel(modelo);
     }
 
     // Método de búsqueda del estudiante por DNI al hacer clic en el botón
@@ -306,6 +306,39 @@ public class Sistema extends javax.swing.JFrame {
         }
     }
 
+    public void buscarEstDesempPorDni () {
+        String IdMatricula = txtIdMatriculaBN.getText().trim();
+
+        if (!IdMatricula.isEmpty()) {
+            List<BoletaNotasControlador> CargaDesempenoBN = estudiantesBNs.CargarDesemBN(IdMatricula);
+            modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
+            modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+            Object[] ob = new Object[7];
+
+            for (BoletaNotasControlador estudianteBN : CargaDesempenoBN) {
+                ob[0] = estudianteBN.getIdAlumnoBN();
+                ob[1] = estudianteBN.getTotalCreditosDesemBN();
+                ob[2] = estudianteBN.getCreditosAprobadosDesemBN();
+                ob[3] = estudianteBN.getCreditosDesaprobadosDesemBN();
+                ob[4] = estudianteBN.getPromedioGeneralDesemBN();
+                ob[5] = estudianteBN.getPuntajeTotalDesemBN();
+                ob[6] = estudianteBN.getOrdenMeritoDesemBN();
+
+                modelo.addRow(ob);
+            }
+
+            tblEstudianteDesemBN.setModel(modelo);
+            //tblEstudianteDesemBN.setRowHeight(50);
+
+            if (CargaDesempenoBN.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún estudiante con el DNI especificado.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un DNI válido pra orden de merito.");
+        }
+    }
+    
+    
     public void CargarNotasBN(String idMatricula) {
         List<BoletaNotasControlador> CargarNotaBn = estudiantesBNs.CargarNotasBN(idMatricula);
         modelo = (DefaultTableModel) tblNotasBN.getModel();
@@ -410,7 +443,7 @@ public class Sistema extends javax.swing.JFrame {
     }
 
     private void LimpiarEstudiantesBN() {
-        //txtDniBN.setText("");
+        txtIdMatriculaBN.setText("");
         txtIdMatriculaBN.setText("");
     }
 
@@ -477,10 +510,12 @@ public class Sistema extends javax.swing.JFrame {
         txtDniBN = new javax.swing.JTextField();
         btnBuscarBN = new javax.swing.JButton();
         jScrollPane15 = new javax.swing.JScrollPane();
-        tblEstudiantesBN = new javax.swing.JTable();
+        tblEstudianteDesemBN = new javax.swing.JTable();
         btnVerNotasBN = new javax.swing.JButton();
         btnBuscarBN2 = new javax.swing.JButton();
         txtIdMatriculaBN = new javax.swing.JTextField();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        tblEstudiantesBN = new javax.swing.JTable();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
         tblNotasBN = new javax.swing.JTable();
@@ -841,12 +876,12 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        tblEstudiantesBN.setModel(new javax.swing.table.DefaultTableModel(
+        tblEstudianteDesemBN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id Alumno", "Dni", "Id Matricula", "Nombre Completo", "Programa de Estudios", "Per. Acad", "Per. Lect."
+                "Id Alumno", "TotalCreditos", "Cred. Aprobados", "Cred. Desprobados", "Promedio", "Puntaje", "Ord. Merito"
             }
         ) {
             Class[] types = new Class [] {
@@ -864,36 +899,36 @@ public class Sistema extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblEstudiantesBN.setToolTipText("");
-        tblEstudiantesBN.setColumnSelectionAllowed(true);
-        tblEstudiantesBN.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tblEstudiantesBN.setFillsViewportHeight(true);
-        tblEstudiantesBN.setRowHeight(30);
-        tblEstudiantesBN.setShowGrid(true);
-        tblEstudiantesBN.getTableHeader().setReorderingAllowed(false);
-        tblEstudiantesBN.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblEstudianteDesemBN.setToolTipText("");
+        tblEstudianteDesemBN.setColumnSelectionAllowed(true);
+        tblEstudianteDesemBN.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblEstudianteDesemBN.setFillsViewportHeight(true);
+        tblEstudianteDesemBN.setRowHeight(30);
+        tblEstudianteDesemBN.setShowGrid(true);
+        tblEstudianteDesemBN.getTableHeader().setReorderingAllowed(false);
+        tblEstudianteDesemBN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEstudiantesBNMouseClicked(evt);
+                tblEstudianteDesemBNMouseClicked(evt);
             }
         });
-        jScrollPane15.setViewportView(tblEstudiantesBN);
-        tblEstudiantesBN.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tblEstudiantesBN.getColumnModel().getColumnCount() > 0) {
-            tblEstudiantesBN.getColumnModel().getColumn(0).setMinWidth(100);
-            tblEstudiantesBN.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblEstudiantesBN.getColumnModel().getColumn(0).setMaxWidth(100);
-            tblEstudiantesBN.getColumnModel().getColumn(1).setMinWidth(65);
-            tblEstudiantesBN.getColumnModel().getColumn(1).setPreferredWidth(65);
-            tblEstudiantesBN.getColumnModel().getColumn(1).setMaxWidth(65);
-            tblEstudiantesBN.getColumnModel().getColumn(2).setMinWidth(100);
-            tblEstudiantesBN.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tblEstudiantesBN.getColumnModel().getColumn(2).setMaxWidth(100);
-            tblEstudiantesBN.getColumnModel().getColumn(3).setMinWidth(110);
-            tblEstudiantesBN.getColumnModel().getColumn(3).setPreferredWidth(110);
-            tblEstudiantesBN.getColumnModel().getColumn(3).setMaxWidth(110);
-            tblEstudiantesBN.getColumnModel().getColumn(4).setMinWidth(150);
-            tblEstudiantesBN.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tblEstudiantesBN.getColumnModel().getColumn(4).setMaxWidth(150);
+        jScrollPane15.setViewportView(tblEstudianteDesemBN);
+        tblEstudianteDesemBN.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblEstudianteDesemBN.getColumnModel().getColumnCount() > 0) {
+            tblEstudianteDesemBN.getColumnModel().getColumn(0).setMinWidth(100);
+            tblEstudianteDesemBN.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblEstudianteDesemBN.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblEstudianteDesemBN.getColumnModel().getColumn(1).setMinWidth(65);
+            tblEstudianteDesemBN.getColumnModel().getColumn(1).setPreferredWidth(65);
+            tblEstudianteDesemBN.getColumnModel().getColumn(1).setMaxWidth(65);
+            tblEstudianteDesemBN.getColumnModel().getColumn(2).setMinWidth(100);
+            tblEstudianteDesemBN.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblEstudianteDesemBN.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblEstudianteDesemBN.getColumnModel().getColumn(3).setMinWidth(110);
+            tblEstudianteDesemBN.getColumnModel().getColumn(3).setPreferredWidth(110);
+            tblEstudianteDesemBN.getColumnModel().getColumn(3).setMaxWidth(110);
+            tblEstudianteDesemBN.getColumnModel().getColumn(4).setMinWidth(150);
+            tblEstudianteDesemBN.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tblEstudianteDesemBN.getColumnModel().getColumn(4).setMaxWidth(150);
         }
 
         btnVerNotasBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -919,6 +954,62 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        txtIdMatriculaBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        tblEstudiantesBN.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id Alumno", "Dni", "Id Matricula", "Nombre Completo", "Programa de Estudios", "Per. Acad", "Per. Lect."
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEstudiantesBN.setToolTipText("");
+        tblEstudiantesBN.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblEstudiantesBN.setFillsViewportHeight(true);
+        tblEstudiantesBN.setRowHeight(30);
+        tblEstudiantesBN.setShowGrid(true);
+        tblEstudiantesBN.getTableHeader().setReorderingAllowed(false);
+        tblEstudiantesBN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEstudiantesBNMouseClicked(evt);
+            }
+        });
+        jScrollPane16.setViewportView(tblEstudiantesBN);
+        tblEstudiantesBN.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblEstudiantesBN.getColumnModel().getColumnCount() > 0) {
+            tblEstudiantesBN.getColumnModel().getColumn(0).setMinWidth(100);
+            tblEstudiantesBN.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblEstudiantesBN.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblEstudiantesBN.getColumnModel().getColumn(1).setMinWidth(65);
+            tblEstudiantesBN.getColumnModel().getColumn(1).setPreferredWidth(65);
+            tblEstudiantesBN.getColumnModel().getColumn(1).setMaxWidth(65);
+            tblEstudiantesBN.getColumnModel().getColumn(2).setMinWidth(100);
+            tblEstudiantesBN.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblEstudiantesBN.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblEstudiantesBN.getColumnModel().getColumn(3).setMinWidth(110);
+            tblEstudiantesBN.getColumnModel().getColumn(3).setPreferredWidth(110);
+            tblEstudiantesBN.getColumnModel().getColumn(3).setMaxWidth(110);
+            tblEstudiantesBN.getColumnModel().getColumn(4).setMinWidth(150);
+            tblEstudiantesBN.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tblEstudiantesBN.getColumnModel().getColumn(4).setMaxWidth(150);
+        }
+
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
@@ -930,19 +1021,25 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(txtDniBN, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addComponent(btnBuscarBN)
-                .addGap(70, 70, 70)
-                .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(111, 111, 111))
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane15)
-                .addContainerGap())
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGap(238, 238, 238)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscarBN2)
-                    .addComponent(btnVerNotasBN))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(btnVerNotasBN)
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBuscarBN2)
+                            .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel20Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane16)
+                    .addContainerGap()))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -951,15 +1048,24 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscarBN)
                     .addComponent(txtDniBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel68)
-                    .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnVerNotasBN)
-                .addGap(40, 40, 40)
-                .addComponent(btnBuscarBN2)
-                .addGap(167, 167, 167))
+                    .addComponent(jLabel68))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(btnVerNotasBN)
+                        .addGap(31, 31, 31))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscarBN2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
+            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel20Layout.createSequentialGroup()
+                    .addGap(79, 79, 79)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(293, Short.MAX_VALUE)))
         );
 
         jPanel21.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1177,7 +1283,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtOrdenMeritoBN3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout JpBoletaNotasLayout = new javax.swing.GroupLayout(JpBoletaNotas);
@@ -4274,15 +4380,33 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnBuscarBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBNActionPerformed
         buscarEstudiantePorDni(); // Llamada al método de búsqueda
+        
     }//GEN-LAST:event_btnBuscarBNActionPerformed
 
     private void tblNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNotasBNMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblNotasBNMouseClicked
 
+    private void tblEstudianteDesemBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudianteDesemBNMouseClicked
+
+    }//GEN-LAST:event_tblEstudianteDesemBNMouseClicked
+
+    private void btnVerNotasBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerNotasBNActionPerformed
+        buscarEstDesempPorDni();
+    }//GEN-LAST:event_btnVerNotasBNActionPerformed
+
+    private void btnBuscarBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBN2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarBN2ActionPerformed
+
+    private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked
+
+    }//GEN-LAST:event_btnVerNotasBNMouseClicked
+
     private void tblEstudiantesBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudiantesBNMouseClicked
-        int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
-        // Quita las etiquetas HTML al asignar el texto a los campos
+            int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
+   
+        txtIdMatriculaBN.setText(tblEstudiantesBN.getValueAt(fila, 2).toString());
         String nombreEstudiante = tblEstudiantesBN.getValueAt(fila, 3).toString()
                 .replaceAll("<br>", " ")
                 .replaceAll("<[^>]*>", "");
@@ -4291,7 +4415,7 @@ public class Sistema extends javax.swing.JFrame {
                 .replaceAll("<br>", " ")
                 .replaceAll("<[^>]*>", "");
 
-        txtIdMatriculaBN.setText(tblEstudiantesBN.getValueAt(fila, 2).toString());
+        
         txtNombreEstudianteBN.setText(nombreEstudiante);
         txtAProgramaEstudiosBN.setText(programaEstudios);
         txtPeriodoAcadeBN.setText(tblEstudiantesBN.getValueAt(fila, 5).toString());
@@ -4303,24 +4427,15 @@ public class Sistema extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, ingresa un DNI válido.");
         }
+        
+        txtIdMatriculaBN.setText(IdMatricula);
 
         LimpiarTabla();
         LimpiarEstudiantesBN();
         CargarNotasBN(IdMatricula);
+        System.out.println(IdMatricula);
 
     }//GEN-LAST:event_tblEstudiantesBNMouseClicked
-
-    private void btnVerNotasBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerNotasBNActionPerformed
-
-    }//GEN-LAST:event_btnVerNotasBNActionPerformed
-
-    private void btnBuscarBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBN2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarBN2ActionPerformed
-
-    private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked
-
-    }//GEN-LAST:event_btnVerNotasBNMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -4494,6 +4609,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -4509,6 +4625,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbFemenino;
     private javax.swing.JRadioButton rbMasculino;
     private javax.swing.JTable tblEstudiante;
+    private javax.swing.JTable tblEstudianteDesemBN;
     private javax.swing.JTable tblEstudiantesBN;
     private javax.swing.JTable tblMatricula;
     private javax.swing.JTable tblNotas;

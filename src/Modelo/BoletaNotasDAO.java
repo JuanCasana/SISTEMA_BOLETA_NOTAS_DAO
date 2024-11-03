@@ -44,33 +44,63 @@ public class BoletaNotasDAO {
     }
 
     public List<BoletaNotasControlador> CargarNotasBN(String idMatricula) {
-    List<BoletaNotasControlador> ListaNotasBN = new ArrayList<>();
-    
-    String sql = "SELECT * FROM VistaUnidadesDidacticasNotas WHERE idMatricula = ?;";
-    try {
-        con = cn.getConnection();
-        ps = con.prepareStatement(sql);
-        
-        // Establece el valor del parámetro DNI
-        ps.setString(1, idMatricula);  // Asumiendo que 'dni' es el valor que quieres pasar
+        List<BoletaNotasControlador> ListaNotasBN = new ArrayList<>();
 
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            BoletaNotasControlador estudianteBN = new BoletaNotasControlador();
-            estudianteBN.setDniNotaBN(rs.getString("Dni"));
-            estudianteBN.setCorrelativo(rs.getString("Correlativo"));
-            estudianteBN.setNombreUDBN(rs.getString("NombreUnidadDidactica"));
-            estudianteBN.setCreditoUDBN(rs.getString("CreditosUnidadDidactica"));
-            estudianteBN.setNotasUDBN(rs.getString("Nota"));
-            //estudianteBN.setPerioLectiBN(rs.getString("IdPeriodoLectivo"));
-            
-            ListaNotasBN.add(estudianteBN);
+        String sql = "SELECT * FROM VistaUnidadesDidacticasNotas WHERE idMatricula = ?;";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+
+            // Establece el valor del parámetro DNI
+            ps.setString(1, idMatricula);  // Asumiendo que 'dni' es el valor que quieres pasar
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                BoletaNotasControlador estudianteBN = new BoletaNotasControlador();
+                estudianteBN.setDniNotaBN(rs.getString("Dni"));
+                estudianteBN.setCorrelativo(rs.getString("Correlativo"));
+                estudianteBN.setNombreUDBN(rs.getString("NombreUnidadDidactica"));
+                estudianteBN.setCreditoUDBN(rs.getString("CreditosUnidadDidactica"));
+                estudianteBN.setNotasUDBN(rs.getString("Nota"));
+                //estudianteBN.setPerioLectiBN(rs.getString("IdPeriodoLectivo"));
+
+                ListaNotasBN.add(estudianteBN);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        } finally {
         }
-    } catch (SQLException e) {
-        System.out.println(e.toString());
-    } finally {
+        return ListaNotasBN;
     }
-    return ListaNotasBN;
-}
+
+    public List<BoletaNotasControlador> CargarDesemBN(String IdMatricula) {
+        List<BoletaNotasControlador> ListaDesempenoBN = new ArrayList<>();
+
+        String sql = "SELECT * FROM VistaDesempenoEstudiante WHERE idMatricula = ?;";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+
+            // Establece el valor del parámetro DNI
+            ps.setString(1, IdMatricula);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                BoletaNotasControlador estudianteDesemBN = new BoletaNotasControlador();
+                estudianteDesemBN.setTotalCreditosDesemBN(rs.getString("TotalCreditos"));
+                estudianteDesemBN.setCreditosAprobadosDesemBN(rs.getString("CreditosAprobados"));
+                estudianteDesemBN.setCreditosDesaprobadosDesemBN(rs.getString("CreditosAprobados"));
+                estudianteDesemBN.setPromedioGeneralDesemBN(rs.getString("PromedioGeneral"));
+                estudianteDesemBN.setPuntajeTotalDesemBN(rs.getString("PuntajeTotal"));
+                estudianteDesemBN.setOrdenMeritoDesemBN(rs.getString("OrdenMerito"));
+
+                ListaDesempenoBN.add(estudianteDesemBN);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        } finally {
+        }
+        return ListaDesempenoBN;
+    }
 
 }
