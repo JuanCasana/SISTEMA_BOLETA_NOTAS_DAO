@@ -234,19 +234,6 @@ public class Sistema extends javax.swing.JFrame {
             ob[5] = estudianteBN.getIdPeriodoAcademicoBN();
             modelo.addRow(ob);
         }
-//        // Paso 2: Crear e implementar el renderizador personalizado en las columnas necesarias
-//        MultiLineTableCellRenderer multiLineRenderer = new MultiLineTableCellRenderer();
-//        tblEstudiantesBN.getColumnModel().getColumn(3).setCellRenderer(multiLineRenderer); // Columna de NombreCompleto
-//        tblEstudiantesBN.getColumnModel().getColumn(4).setCellRenderer(multiLineRenderer); // Columna de NombreProgramaEstudio
-//
-//        // Paso 3: Ajustar el ancho de las columnas para una mejor visualización
-//        tblEstudiantesBN.getColumnModel().getColumn(0).setPreferredWidth(80);  // IdAlumno
-//        tblEstudiantesBN.getColumnModel().getColumn(1).setPreferredWidth(100); // DNI
-//        tblEstudiantesBN.getColumnModel().getColumn(2).setPreferredWidth(100); // IdMatricula
-//        tblEstudiantesBN.getColumnModel().getColumn(3).setPreferredWidth(200); // NombreCompleto
-//        tblEstudiantesBN.getColumnModel().getColumn(4).setPreferredWidth(150); // NombreProgramaEstudio
-//        tblEstudiantesBN.getColumnModel().getColumn(5).setPreferredWidth(100); // IdPeriodoAcademico
-
         tblEstudianteDesemBN.setModel(modelo);
     }
 
@@ -307,7 +294,7 @@ public class Sistema extends javax.swing.JFrame {
     }
 
     public void buscarEstDesempPorDni () {
-        String IdMatricula = txtIdMatriculaBN.getText().trim();
+        String IdMatricula = txtIdMatriculaBNs.getText().trim();
 
         if (!IdMatricula.isEmpty()) {
             List<BoletaNotasControlador> CargaDesempenoBN = estudiantesBNs.CargarDesemBN(IdMatricula);
@@ -337,7 +324,22 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un DNI válido pra orden de merito.");
         }
     }
-    
+        public void CargarDesemEstBN(String IdMatricula) {
+        List<BoletaNotasControlador> CargarDesmEst = estudiantesBNs.CargarDesemBN(IdMatricula);
+        modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
+        Object[] ob = new Object[8];
+        for (int i = 0; i < CargarDesmEst.size(); i++) {
+            ob[0] = CargarDesmEst.get(i).getIdAlumnoBN();
+            ob[1] = CargarDesmEst.get(i).getTotalCreditosDesemBN();
+            ob[2] = CargarDesmEst.get(i).getCreditosAprobadosDesemBN();
+            ob[3] = CargarDesmEst.get(i).getCreditosDesaprobadosDesemBN();
+            ob[4] = CargarDesmEst.get(i).getPromedioGeneralDesemBN();
+            ob[5] = CargarDesmEst.get(i).getPuntajeTotalDesemBN();
+            ob[6] = CargarDesmEst.get(i).getOrdenMeritoDesemBN();
+            modelo.addRow(ob);
+        }
+        tblEstudianteDesemBN.setModel(modelo);
+    }
     
     public void CargarNotasBN(String idMatricula) {
         List<BoletaNotasControlador> CargarNotaBn = estudiantesBNs.CargarNotasBN(idMatricula);
@@ -516,6 +518,7 @@ public class Sistema extends javax.swing.JFrame {
         txtIdMatriculaBN = new javax.swing.JTextField();
         jScrollPane16 = new javax.swing.JScrollPane();
         tblEstudiantesBN = new javax.swing.JTable();
+        txtIdMatriculaBNs = new javax.swing.JTextField();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
         tblNotasBN = new javax.swing.JTable();
@@ -1025,8 +1028,13 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnVerNotasBN)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(133, 133, 133)
+                                .addComponent(btnVerNotasBN))
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtIdMatriculaBNs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(42, 42, 42)
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBuscarBN2)
@@ -1052,6 +1060,8 @@ public class Sistema extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(txtIdMatriculaBNs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
                         .addComponent(btnVerNotasBN)
                         .addGap(31, 31, 31))
                     .addGroup(jPanel20Layout.createSequentialGroup()
@@ -4392,7 +4402,17 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_tblEstudianteDesemBNMouseClicked
 
     private void btnVerNotasBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerNotasBNActionPerformed
-        buscarEstDesempPorDni();
+    //    buscarEstDesempPorDni();
+    LimpiarTabla();
+    String idMatricula = txtIdMatriculaBNs.getText();
+        if (!idMatricula.isEmpty()) {
+            // Implementa la lógica para cargar los datos según el idMatricula
+            CargarDesemEstBN(idMatricula); // Llama a un método que cargue los datos de las notas
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un estudiante de la tabla primero.");
+        }
+        
+        
     }//GEN-LAST:event_btnVerNotasBNActionPerformed
 
     private void btnBuscarBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBN2ActionPerformed
@@ -4406,7 +4426,7 @@ public class Sistema extends javax.swing.JFrame {
     private void tblEstudiantesBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudiantesBNMouseClicked
             int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
    
-        txtIdMatriculaBN.setText(tblEstudiantesBN.getValueAt(fila, 2).toString());
+        
         String nombreEstudiante = tblEstudiantesBN.getValueAt(fila, 3).toString()
                 .replaceAll("<br>", " ")
                 .replaceAll("<[^>]*>", "");
@@ -4415,20 +4435,20 @@ public class Sistema extends javax.swing.JFrame {
                 .replaceAll("<br>", " ")
                 .replaceAll("<[^>]*>", "");
 
-        
+        String idMatricula = tblEstudiantesBN.getValueAt(fila, 2).toString();
+        txtIdMatriculaBNs.setText(idMatricula);
         txtNombreEstudianteBN.setText(nombreEstudiante);
         txtAProgramaEstudiosBN.setText(programaEstudios);
         txtPeriodoAcadeBN.setText(tblEstudiantesBN.getValueAt(fila, 5).toString());
         txtPeriodoLectBN.setText(tblEstudiantesBN.getValueAt(fila, 6).toString());
 
-        String IdMatricula = txtIdMatriculaBN.getText(); // Obtener el DNI del campo de texto
+        String IdMatricula = txtIdMatriculaBNs.getText(); // Obtener el DNI del campo de texto
         if (!IdMatricula.isEmpty()) { // Verifica que el DNI no esté vacío
             CargarNotasBN(IdMatricula); // Llama al método para cargar las notas
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, ingresa un DNI válido.");
         }
-        
-        txtIdMatriculaBN.setText(IdMatricula);
+
 
         LimpiarTabla();
         LimpiarEstudiantesBN();
@@ -4662,6 +4682,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdAulaMatricula;
     private javax.swing.JTextField txtIdMatricula;
     private javax.swing.JTextField txtIdMatriculaBN;
+    private javax.swing.JTextField txtIdMatriculaBNs;
     private javax.swing.JTextField txtIdMatriculaNotas;
     private javax.swing.JTextField txtIdModulo;
     private javax.swing.JTextField txtIdNotas;

@@ -87,9 +87,10 @@ public class BoletaNotasDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 BoletaNotasControlador estudianteDesemBN = new BoletaNotasControlador();
+                estudianteDesemBN.setTotalCreditosDesemBN(rs.getString("IdAlumno"));
                 estudianteDesemBN.setTotalCreditosDesemBN(rs.getString("TotalCreditos"));
                 estudianteDesemBN.setCreditosAprobadosDesemBN(rs.getString("CreditosAprobados"));
-                estudianteDesemBN.setCreditosDesaprobadosDesemBN(rs.getString("CreditosAprobados"));
+                estudianteDesemBN.setCreditosDesaprobadosDesemBN(rs.getString("CreditosDesaprobados"));
                 estudianteDesemBN.setPromedioGeneralDesemBN(rs.getString("PromedioGeneral"));
                 estudianteDesemBN.setPuntajeTotalDesemBN(rs.getString("PuntajeTotal"));
                 estudianteDesemBN.setOrdenMeritoDesemBN(rs.getString("OrdenMerito"));
@@ -102,5 +103,7 @@ public class BoletaNotasDAO {
         }
         return ListaDesempenoBN;
     }
+    
+    
 
 }
