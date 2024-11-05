@@ -25,6 +25,7 @@ import Modelo.UnidadDidacticaDAO;
 import Modelo.UsuarioDAO;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Sistema extends javax.swing.JFrame {
@@ -73,7 +75,8 @@ public class Sistema extends javax.swing.JFrame {
         btnGrAlumno.add(rbMasculino);
         btnGrAlumno.add(rbFemenino);
         txtId.setVisible(false);
-        //txtIdMatriculaBN.setVisible(false);
+        txtIdMatriculaBN.setVisible(false);
+        txtIdMatriculaBNs.setVisible(false);
 
     }
 
@@ -218,25 +221,24 @@ public class Sistema extends javax.swing.JFrame {
         tblNotas.setModel(modelo);
     }
 
-// Método para cargar datos en la tabla a partir de la búsqueda
-    public void CargarEstudianteBN(String dni) {
-        List<BoletaNotasControlador> CargarEsBN = estudiantesBNs.CargarEstudianteBN(dni);
-        modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
-        modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
-        Object[] ob = new Object[6];
-
-        for (BoletaNotasControlador estudianteBN : CargarEsBN) {
-            ob[0] = estudianteBN.getIdAlumnoBN();
-            ob[1] = estudianteBN.getDni();
-            ob[2] = estudianteBN.getIdMatriculaBN();
-            ob[3] = estudianteBN.getNombreCompletoBN();
-            ob[4] = estudianteBN.getNombreProgramaEstudioBN();
-            ob[5] = estudianteBN.getIdPeriodoAcademicoBN();
-            modelo.addRow(ob);
-        }
-        tblEstudianteDesemBN.setModel(modelo);
-    }
-
+//// Método para cargar datos en la tabla a partir de la búsqueda
+//    public void CargarEstudianteBN(String dni) {
+//        List<BoletaNotasControlador> CargarEsBN = estudiantesBNs.CargarEstudianteBN(dni);
+//        modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
+//        modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+//        Object[] ob = new Object[6];
+//
+//        for (BoletaNotasControlador estudianteBN : CargarEsBN) {
+//            ob[0] = estudianteBN.getIdAlumnoBN();
+//            ob[1] = estudianteBN.getDni();
+//            ob[2] = estudianteBN.getIdMatriculaBN();
+//            ob[3] = estudianteBN.getNombreCompletoBN();
+//            ob[4] = estudianteBN.getNombreProgramaEstudioBN();
+//            ob[5] = estudianteBN.getIdPeriodoAcademicoBN();
+//            modelo.addRow(ob);
+//        }
+//        tblEstudianteDesemBN.setModel(modelo);
+//    }
     // Método de búsqueda del estudiante por DNI al hacer clic en el botón
     public void buscarEstudiantePorDni() {
         String dni = txtDniBN.getText().trim();
@@ -293,54 +295,53 @@ public class Sistema extends javax.swing.JFrame {
         }
     }
 
-    public void buscarEstDesempPorDni () {
-        String IdMatricula = txtIdMatriculaBNs.getText().trim();
-
-        if (!IdMatricula.isEmpty()) {
-            List<BoletaNotasControlador> CargaDesempenoBN = estudiantesBNs.CargarDesemBN(IdMatricula);
-            modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
-            modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
-            Object[] ob = new Object[7];
-
-            for (BoletaNotasControlador estudianteBN : CargaDesempenoBN) {
-                ob[0] = estudianteBN.getIdAlumnoBN();
-                ob[1] = estudianteBN.getTotalCreditosDesemBN();
-                ob[2] = estudianteBN.getCreditosAprobadosDesemBN();
-                ob[3] = estudianteBN.getCreditosDesaprobadosDesemBN();
-                ob[4] = estudianteBN.getPromedioGeneralDesemBN();
-                ob[5] = estudianteBN.getPuntajeTotalDesemBN();
-                ob[6] = estudianteBN.getOrdenMeritoDesemBN();
-
-                modelo.addRow(ob);
-            }
-
-            tblEstudianteDesemBN.setModel(modelo);
-            //tblEstudianteDesemBN.setRowHeight(50);
-
-            if (CargaDesempenoBN.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No se encontró ningún estudiante con el DNI especificado.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un DNI válido pra orden de merito.");
-        }
-    }
-        public void CargarDesemEstBN(String IdMatricula) {
-        List<BoletaNotasControlador> CargarDesmEst = estudiantesBNs.CargarDesemBN(IdMatricula);
-        modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
-        Object[] ob = new Object[8];
-        for (int i = 0; i < CargarDesmEst.size(); i++) {
-            ob[0] = CargarDesmEst.get(i).getIdAlumnoBN();
-            ob[1] = CargarDesmEst.get(i).getTotalCreditosDesemBN();
-            ob[2] = CargarDesmEst.get(i).getCreditosAprobadosDesemBN();
-            ob[3] = CargarDesmEst.get(i).getCreditosDesaprobadosDesemBN();
-            ob[4] = CargarDesmEst.get(i).getPromedioGeneralDesemBN();
-            ob[5] = CargarDesmEst.get(i).getPuntajeTotalDesemBN();
-            ob[6] = CargarDesmEst.get(i).getOrdenMeritoDesemBN();
-            modelo.addRow(ob);
-        }
-        tblEstudianteDesemBN.setModel(modelo);
-    }
-    
+//    public void buscarEstDesempPorDni () {
+//        String IdMatricula = txtIdMatriculaBNs.getText().trim();
+//
+//        if (!IdMatricula.isEmpty()) {
+//            List<BoletaNotasControlador> CargaDesempenoBN = estudiantesBNs.CargarDesemBN(IdMatricula);
+//            modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
+//            modelo.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+//            Object[] ob = new Object[7];
+//
+//            for (BoletaNotasControlador estudianteBN : CargaDesempenoBN) {
+//                ob[0] = estudianteBN.getIdAlumnoBN();
+//                ob[1] = estudianteBN.getTotalCreditosDesemBN();
+//                ob[2] = estudianteBN.getCreditosAprobadosDesemBN();
+//                ob[3] = estudianteBN.getCreditosDesaprobadosDesemBN();
+//                ob[4] = estudianteBN.getPromedioGeneralDesemBN();
+//                ob[5] = estudianteBN.getPuntajeTotalDesemBN();
+//                ob[6] = estudianteBN.getOrdenMeritoDesemBN();
+//
+//                modelo.addRow(ob);
+//            }
+//
+//            tblEstudianteDesemBN.setModel(modelo);
+//            //tblEstudianteDesemBN.setRowHeight(50);
+//
+//            if (CargaDesempenoBN.isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "No se encontró ningún estudiante con el DNI especificado.");
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Por favor, ingrese un DNI válido pra orden de merito.");
+//        }
+//    }
+//        public void CargarDesemEstBN(String IdMatricula) {
+//        List<BoletaNotasControlador> CargarDesmEst = estudiantesBNs.CargarDesemBN(IdMatricula);
+//        modelo = (DefaultTableModel) tblEstudianteDesemBN.getModel();
+//        Object[] ob = new Object[8];
+//        for (int i = 0; i < CargarDesmEst.size(); i++) {
+//            ob[0] = CargarDesmEst.get(i).getIdAlumnoBN();
+//            ob[1] = CargarDesmEst.get(i).getTotalCreditosDesemBN();
+//            ob[2] = CargarDesmEst.get(i).getCreditosAprobadosDesemBN();
+//            ob[3] = CargarDesmEst.get(i).getCreditosDesaprobadosDesemBN();
+//            ob[4] = CargarDesmEst.get(i).getPromedioGeneralDesemBN();
+//            ob[5] = CargarDesmEst.get(i).getPuntajeTotalDesemBN();
+//            ob[6] = CargarDesmEst.get(i).getOrdenMeritoDesemBN();
+//            modelo.addRow(ob);
+//        }
+//        tblEstudianteDesemBN.setModel(modelo);
+//    }
     public void CargarNotasBN(String idMatricula) {
         List<BoletaNotasControlador> CargarNotaBn = estudiantesBNs.CargarNotasBN(idMatricula);
         modelo = (DefaultTableModel) tblNotasBN.getModel();
@@ -363,6 +364,13 @@ public class Sistema extends javax.swing.JFrame {
             i = i - 1;
         }
     }
+    
+    public void LimpiarTablaEspecifica(JTable tabla) {
+    // Obtiene el modelo de la tabla
+    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+    // Limpia todas las filas del modelo
+    modelo.setRowCount(0);
+}
 
     //FUNCIONA
     private void LimpiarUsuarios() {
@@ -444,9 +452,26 @@ public class Sistema extends javax.swing.JFrame {
 
     }
 
+    private void LimpiarBoletaNotas() {
+        txtIdMatriculaBN.setText("");
+        txtIdMatriculaBNs.setText("");
+        txtDniBN.setText("");
+        txtNombreEstudianteBN.setText("");
+        txtAProgramaEstudiosBN.setText("");
+        txtPeriodoAcadeBN.setText("");
+        txtPeriodoLectBN.setText("");
+        txtTotalCreditosPeriodoBN.setText("");
+        txtCreditosAprobadosBN.setText("");
+        txtPromedioGeneralBN2.setText("");
+        txtPuntajeTotalObtBN1.setText("");
+        txtCreditosDesaprobadosBN5.setText("");
+        txtOrdenMeritoBN3.setText("");
+
+    }
+
     private void LimpiarEstudiantesBN() {
         txtIdMatriculaBN.setText("");
-        txtIdMatriculaBN.setText("");
+        txtIdMatriculaBNs.setText("");
     }
 
     public JButton getBtnBoletaNotas() {
@@ -511,8 +536,6 @@ public class Sistema extends javax.swing.JFrame {
         jLabel68 = new javax.swing.JLabel();
         txtDniBN = new javax.swing.JTextField();
         btnBuscarBN = new javax.swing.JButton();
-        jScrollPane15 = new javax.swing.JScrollPane();
-        tblEstudianteDesemBN = new javax.swing.JTable();
         btnVerNotasBN = new javax.swing.JButton();
         btnBuscarBN2 = new javax.swing.JButton();
         txtIdMatriculaBN = new javax.swing.JTextField();
@@ -879,64 +902,9 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        tblEstudianteDesemBN.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id Alumno", "TotalCreditos", "Cred. Aprobados", "Cred. Desprobados", "Promedio", "Puntaje", "Ord. Merito"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblEstudianteDesemBN.setToolTipText("");
-        tblEstudianteDesemBN.setColumnSelectionAllowed(true);
-        tblEstudianteDesemBN.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tblEstudianteDesemBN.setFillsViewportHeight(true);
-        tblEstudianteDesemBN.setRowHeight(30);
-        tblEstudianteDesemBN.setShowGrid(true);
-        tblEstudianteDesemBN.getTableHeader().setReorderingAllowed(false);
-        tblEstudianteDesemBN.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEstudianteDesemBNMouseClicked(evt);
-            }
-        });
-        jScrollPane15.setViewportView(tblEstudianteDesemBN);
-        tblEstudianteDesemBN.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tblEstudianteDesemBN.getColumnModel().getColumnCount() > 0) {
-            tblEstudianteDesemBN.getColumnModel().getColumn(0).setMinWidth(100);
-            tblEstudianteDesemBN.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblEstudianteDesemBN.getColumnModel().getColumn(0).setMaxWidth(100);
-            tblEstudianteDesemBN.getColumnModel().getColumn(1).setMinWidth(65);
-            tblEstudianteDesemBN.getColumnModel().getColumn(1).setPreferredWidth(65);
-            tblEstudianteDesemBN.getColumnModel().getColumn(1).setMaxWidth(65);
-            tblEstudianteDesemBN.getColumnModel().getColumn(2).setMinWidth(100);
-            tblEstudianteDesemBN.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tblEstudianteDesemBN.getColumnModel().getColumn(2).setMaxWidth(100);
-            tblEstudianteDesemBN.getColumnModel().getColumn(3).setMinWidth(110);
-            tblEstudianteDesemBN.getColumnModel().getColumn(3).setPreferredWidth(110);
-            tblEstudianteDesemBN.getColumnModel().getColumn(3).setMaxWidth(110);
-            tblEstudianteDesemBN.getColumnModel().getColumn(4).setMinWidth(150);
-            tblEstudianteDesemBN.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tblEstudianteDesemBN.getColumnModel().getColumn(4).setMaxWidth(150);
-        }
-
         btnVerNotasBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnVerNotasBN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ordenx32.png"))); // NOI18N
-        btnVerNotasBN.setText("Ver Notas");
+        btnVerNotasBN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/limpiar x32.png"))); // NOI18N
+        btnVerNotasBN.setText("Limpiar");
         btnVerNotasBN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnVerNotasBNMouseClicked(evt);
@@ -1024,25 +992,17 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(txtDniBN, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addComponent(btnBuscarBN)
-                .addGap(111, 111, 111))
+                .addGap(78, 78, 78)
+                .addComponent(txtIdMatriculaBNs, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addGap(133, 133, 133)
-                                .addComponent(btnVerNotasBN))
-                            .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(txtIdMatriculaBNs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscarBN2)
-                            .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(125, 125, 125)
+                .addComponent(btnBuscarBN2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVerNotasBN)
+                .addGap(122, 122, 122))
             .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel20Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1053,24 +1013,19 @@ public class Sistema extends javax.swing.JFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscarBN)
-                    .addComponent(txtDniBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel68))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addComponent(txtIdMatriculaBNs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(btnVerNotasBN)
-                        .addGap(31, 31, 31))
-                    .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscarBN)
+                        .addComponent(txtDniBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel68))
+                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtIdMatriculaBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscarBN2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                        .addComponent(txtIdMatriculaBNs, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVerNotasBN)
+                    .addComponent(btnBuscarBN2))
+                .addGap(210, 210, 210))
             .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel20Layout.createSequentialGroup()
                     .addGap(79, 79, 79)
@@ -3305,8 +3260,10 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEstudianteMouseClicked
 
     private void BtnBoletaNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBoletaNotasActionPerformed
+        LimpiarBoletaNotas();
         LimpiarEstudiantesBN();
-        LimpiarTabla();
+        LimpiarTablaEspecifica(tblEstudiantesBN);
+        LimpiarTablaEspecifica(tblNotasBN);
         jTabbedPane1.setSelectedIndex(0);
         LimpiarEstudiantesBN();
 
@@ -4390,29 +4347,28 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnBuscarBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBNActionPerformed
         buscarEstudiantePorDni(); // Llamada al método de búsqueda
-        
+        txtNombreEstudianteBN.setText("");
+        txtAProgramaEstudiosBN.setText("");
+        txtPeriodoAcadeBN.setText("");
+        txtPeriodoLectBN.setText("");
+        txtTotalCreditosPeriodoBN.setText("");
+        txtCreditosAprobadosBN.setText("");
+        txtPromedioGeneralBN2.setText("");
+        txtPuntajeTotalObtBN1.setText("");
+        txtCreditosDesaprobadosBN5.setText("");
+        txtOrdenMeritoBN3.setText("");
+        LimpiarTablaEspecifica(tblNotasBN);
+
     }//GEN-LAST:event_btnBuscarBNActionPerformed
 
     private void tblNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNotasBNMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblNotasBNMouseClicked
 
-    private void tblEstudianteDesemBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudianteDesemBNMouseClicked
-
-    }//GEN-LAST:event_tblEstudianteDesemBNMouseClicked
-
     private void btnVerNotasBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerNotasBNActionPerformed
-    //    buscarEstDesempPorDni();
-    LimpiarTabla();
-    String idMatricula = txtIdMatriculaBNs.getText();
-        if (!idMatricula.isEmpty()) {
-            // Implementa la lógica para cargar los datos según el idMatricula
-            CargarDesemEstBN(idMatricula); // Llama a un método que cargue los datos de las notas
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un estudiante de la tabla primero.");
-        }
-        
-        
+        LimpiarBoletaNotas();
+        LimpiarTabla();
+        LimpiarTablaEspecifica(tblEstudiantesBN);
     }//GEN-LAST:event_btnVerNotasBNActionPerformed
 
     private void btnBuscarBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBN2ActionPerformed
@@ -4424,9 +4380,8 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerNotasBNMouseClicked
 
     private void tblEstudiantesBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudiantesBNMouseClicked
-            int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
-   
-        
+        int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
+
         String nombreEstudiante = tblEstudiantesBN.getValueAt(fila, 3).toString()
                 .replaceAll("<br>", " ")
                 .replaceAll("<[^>]*>", "");
@@ -4449,11 +4404,40 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, ingresa un DNI válido.");
         }
 
+        String idMatriculas = txtIdMatriculaBNs.getText().trim();
+        // Crear un objeto DecimalFormat para limitar a 2 decimales
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
+        if (!idMatriculas.isEmpty()) {
+            // Llamar al método controlador para cargar los datos del rendimiento del estudiante
+            List<BoletaNotasControlador> listaDesempeno = estudiantesBNs.CargarDesemBN(idMatriculas);
+
+            // Verificar si la lista contiene datos
+            if (!listaDesempeno.isEmpty()) {
+                // Obtener el primer registro de la lista
+                BoletaNotasControlador desempeno = listaDesempeno.get(0);
+
+                // Cargar los datos en los TextFields correspondientes
+                txtTotalCreditosPeriodoBN.setText(desempeno.getTotalCreditosDesemBN());
+                txtPuntajeTotalObtBN1.setText(desempeno.getPuntajeTotalDesemBN());
+                txtCreditosAprobadosBN.setText(desempeno.getCreditosAprobadosDesemBN());
+                txtCreditosDesaprobadosBN5.setText(desempeno.getCreditosDesaprobadosDesemBN());
+                // Formatear el promedio general a 2 decimales
+                String promedioFormateado = decimalFormat.format(Double.parseDouble(desempeno.getPromedioGeneralDesemBN()));
+                txtPromedioGeneralBN2.setText(promedioFormateado);
+                //txtPromedioGeneralBN2.setText(desempeno.getPromedioGeneralDesemBN());
+                txtOrdenMeritoBN3.setText(desempeno.getOrdenMeritoDesemBN());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron datos para el ID de matrícula proporcionado.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID de matrícula válido.");
+        }
 
         LimpiarTabla();
         LimpiarEstudiantesBN();
         CargarNotasBN(IdMatricula);
-        System.out.println(IdMatricula);
+        //System.out.println(IdMatricula);
 
     }//GEN-LAST:event_tblEstudiantesBNMouseClicked
 
@@ -4628,7 +4612,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -4645,7 +4628,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbFemenino;
     private javax.swing.JRadioButton rbMasculino;
     private javax.swing.JTable tblEstudiante;
-    private javax.swing.JTable tblEstudianteDesemBN;
     private javax.swing.JTable tblEstudiantesBN;
     private javax.swing.JTable tblMatricula;
     private javax.swing.JTable tblNotas;
