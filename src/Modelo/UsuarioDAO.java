@@ -55,7 +55,8 @@ public class UsuarioDAO {
     public List CargarUsuario() {
         List<UsuarioControlador> ListaUs = new ArrayList<>();
 
-        String sql = "SELECT IdUsuario, Dni, ApPaterno, ApMaterno, Nombres, Email, Celular, NivelAcceso FROM Usuario WHERE Estado = 1;";
+                        //IdUsuario, Dni, ApPaterno, ApMaterno, Nombres, Email, Celular, NivelAcceso 
+        String sql = "SELECT * FROM Usuario WHERE Estado = 1;";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
