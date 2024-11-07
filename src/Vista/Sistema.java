@@ -2088,7 +2088,8 @@ public class Sistema extends javax.swing.JFrame {
         txtNombreUnidadDidacticaNotas.setColumns(20);
         txtNombreUnidadDidacticaNotas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtNombreUnidadDidacticaNotas.setLineWrap(true);
-        txtNombreUnidadDidacticaNotas.setRows(5);
+        txtNombreUnidadDidacticaNotas.setRows(1);
+        txtNombreUnidadDidacticaNotas.setTabSize(2);
         txtNombreUnidadDidacticaNotas.setFocusable(false);
         jScrollPane11.setViewportView(txtNombreUnidadDidacticaNotas);
 
@@ -2174,8 +2175,8 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(jLabel58))
                             .addGroup(jPanel16Layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
-                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(9, 9, 9)
+                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel56)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2348,7 +2349,8 @@ public class Sistema extends javax.swing.JFrame {
         txtIdProgramaEstudiosMatricula.setColumns(20);
         txtIdProgramaEstudiosMatricula.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtIdProgramaEstudiosMatricula.setLineWrap(true);
-        txtIdProgramaEstudiosMatricula.setRows(5);
+        txtIdProgramaEstudiosMatricula.setRows(1);
+        txtIdProgramaEstudiosMatricula.setTabSize(3);
         txtIdProgramaEstudiosMatricula.setAutoscrolls(false);
         jScrollPane10.setViewportView(txtIdProgramaEstudiosMatricula);
 
