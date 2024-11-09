@@ -1,0 +1,139 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="BoletaNotasReport" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1f690a3-5977-4467-85f8-6b0bcd5b7210">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion SqlServer"/>
+	<style name="Title" fontName="Arial" fontSize="26.0" bold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18.0"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12.0" bold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12.0"/>
+	<query language="SQL"><![CDATA[SELECT * FROM VistaUnidadesDidacticasNotas]]></query>
+	<field name="Correlativo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="Correlativo"/>
+		<property name="com.jaspersoft.studio.field.label" value="Correlativo"/>
+	</field>
+	<field name="IdMatricula" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="IdMatricula"/>
+		<property name="com.jaspersoft.studio.field.label" value="IdMatricula"/>
+	</field>
+	<field name="Dni" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Dni"/>
+		<property name="com.jaspersoft.studio.field.label" value="Dni"/>
+	</field>
+	<field name="NombreUnidadDidactica" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NombreUnidadDidactica"/>
+		<property name="com.jaspersoft.studio.field.label" value="NombreUnidadDidactica"/>
+	</field>
+	<field name="CreditosUnidadDidactica" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="CreditosUnidadDidactica"/>
+		<property name="com.jaspersoft.studio.field.label" value="CreditosUnidadDidactica"/>
+	</field>
+	<field name="Nota" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Nota"/>
+		<property name="com.jaspersoft.studio.field.label" value="Nota"/>
+	</field>
+	<field name="IdPeriodoLectivo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="IdPeriodoLectivo"/>
+		<property name="com.jaspersoft.studio.field.label" value="IdPeriodoLectivo"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="70" splitType="Stretch">
+		<element kind="image" uuid="363fa2ad-70fc-43cb-9062-e6c62c7f48fc" x="275" y="0" width="300" height="64">
+			<expression><![CDATA["leaf_banner_gray.png"]]></expression>
+		</element>
+		<element kind="staticText" uuid="6f9c1004-6140-4588-9c4f-d75824835765" x="0" y="13" width="263" height="33" vTextAlign="Middle" style="Title">
+			<text><![CDATA[Leaf Gray Title]]></text>
+		</element>
+		<element kind="staticText" uuid="8e16dabd-2e54-471b-9652-83e1d55379ec" x="117" y="46" width="157" height="22" style="SubTitle">
+			<text><![CDATA[Leaf Gray SubTitle]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="36" splitType="Stretch">
+		<element kind="line" uuid="544e89f7-0fd1-4142-aa23-e335e3be7007" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1">
+			<pen lineWidth="0.5" lineColor="#999999"/>
+		</element>
+		<element kind="staticText" uuid="18758b0d-5adf-4819-9297-14c3d3a62a90" x="0" y="19" width="79" height="15" style="Column header">
+			<text><![CDATA[Correlativo]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05efd2b4-6be7-413e-83a1-71b031e802cd"/>
+		</element>
+		<element kind="staticText" uuid="af2b4a44-7791-4e75-8b89-7a018d54c89f" x="79" y="19" width="79" height="15" style="Column header">
+			<text><![CDATA[IdMatricula]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6bc02d8-1906-4954-ba0e-6490fb4ae49c"/>
+		</element>
+		<element kind="staticText" uuid="d494ebe1-a07b-4a4c-85d8-a72769e2f503" x="158" y="19" width="79" height="15" style="Column header">
+			<text><![CDATA[Dni]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc1d7357-6574-4673-b9a1-f669e4273f9d"/>
+		</element>
+		<element kind="staticText" uuid="580879d5-0ba5-49d1-8a99-eda7b3528152" x="237" y="19" width="79" height="15" style="Column header">
+			<text><![CDATA[NombreUnidadDidactica]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9051ba7b-7952-4cfe-b786-b269dbda7a48"/>
+		</element>
+		<element kind="staticText" uuid="df39b1f1-8a9d-45a4-a184-3c133b49219b" x="316" y="19" width="79" height="15" style="Column header">
+			<text><![CDATA[CreditosUnidadDidactica]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c864f71-f6bd-4470-a844-ea63e97e3d37"/>
+		</element>
+		<element kind="staticText" uuid="3065a5db-5ae0-44d6-86fe-ec42cd3f7ef5" x="395" y="19" width="79" height="15" style="Column header">
+			<text><![CDATA[Nota]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a49639f-05a1-4318-a7aa-3301b3901339"/>
+		</element>
+		<element kind="staticText" uuid="df622739-bd85-4992-a822-d250a00328ee" x="474" y="19" width="79" height="15" style="Column header">
+			<text><![CDATA[IdPeriodoLectivo]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b39fc7fd-0863-4b4e-8f69-20a9ef4e70ae"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<element kind="line" uuid="cb229859-ab9a-4aa3-afa2-84439642f4ee" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1">
+				<pen lineWidth="0.5" lineColor="#999999"/>
+			</element>
+			<element kind="textField" uuid="96e676f6-cc50-466b-a376-079400ea67ea" x="0" y="0" width="79" height="15" style="Detail">
+				<expression><![CDATA[$F{Correlativo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05efd2b4-6be7-413e-83a1-71b031e802cd"/>
+			</element>
+			<element kind="textField" uuid="07b655ea-323c-4886-8c11-fa631ec45343" x="79" y="0" width="79" height="15" style="Detail">
+				<expression><![CDATA[$F{IdMatricula}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6bc02d8-1906-4954-ba0e-6490fb4ae49c"/>
+			</element>
+			<element kind="textField" uuid="9ba510cc-51ce-45ce-b290-e5eacd9a2342" x="158" y="0" width="79" height="15" style="Detail">
+				<expression><![CDATA[$F{Dni}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc1d7357-6574-4673-b9a1-f669e4273f9d"/>
+			</element>
+			<element kind="textField" uuid="5692a60e-ed6d-4ede-94a0-20f45caabb60" x="237" y="0" width="79" height="15" style="Detail">
+				<expression><![CDATA[$F{NombreUnidadDidactica}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9051ba7b-7952-4cfe-b786-b269dbda7a48"/>
+			</element>
+			<element kind="textField" uuid="6c64368e-3db4-4b90-a01f-bf8d9d94d3ec" x="316" y="0" width="79" height="15" style="Detail">
+				<expression><![CDATA[$F{CreditosUnidadDidactica}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c864f71-f6bd-4470-a844-ea63e97e3d37"/>
+			</element>
+			<element kind="textField" uuid="7cfb2c8e-b3c8-4db2-ab92-82cd423f70de" x="395" y="0" width="79" height="15" style="Detail">
+				<expression><![CDATA[$F{Nota}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a49639f-05a1-4318-a7aa-3301b3901339"/>
+			</element>
+			<element kind="textField" uuid="dce094a2-e8c5-48a4-91e8-84c798c8e8b2" x="474" y="0" width="79" height="15" style="Detail">
+				<expression><![CDATA[$F{IdPeriodoLectivo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b39fc7fd-0863-4b4e-8f69-20a9ef4e70ae"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch">
+		<element kind="line" uuid="401e0e59-de38-4dd2-8257-418cb489177c" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1">
+			<pen lineWidth="0.5" lineColor="#999999"/>
+		</element>
+	</columnFooter>
+	<pageFooter height="20" splitType="Stretch">
+		<element kind="textField" uuid="deb23d85-47bb-4de6-978e-113ff117188c" x="433" y="0" width="80" height="20" fontSize="10.0" bold="false" hTextAlign="Right" style="Column header">
+			<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+		</element>
+		<element kind="textField" uuid="c6ce76ba-6e11-41e2-9415-72dc2eff001b" x="513" y="0" width="40" height="20" fontSize="10.0" evaluationTime="Report" bold="false" style="Column header">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="5a79d2a0-bcde-4ad5-adf0-c4eb2066f6dd" x="0" y="0" width="197" height="20" fontSize="10.0" pattern="EEEEE dd MMMMM yyyy" bold="false" style="Column header">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageFooter>
+	<summary splitType="Stretch"/>
+</jasperReport>

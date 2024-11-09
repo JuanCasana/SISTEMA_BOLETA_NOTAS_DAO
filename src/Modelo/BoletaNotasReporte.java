@@ -1,4 +1,4 @@
-package Reporte;
+package Modelo;
 
 import Controlador.BoletaNotasControlador;
 import net.sf.jasperreports.engine.*;

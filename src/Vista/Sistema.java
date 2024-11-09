@@ -4,7 +4,7 @@
  */
 package Vista;
 
-import Reporte.BoletaNotasReporte;
+import Modelo.BoletaNotasReporte;
 import Controlador.BoletaNotasControlador;
 import Controlador.EstudianteControlador;
 import Controlador.MatriculaControlador;
