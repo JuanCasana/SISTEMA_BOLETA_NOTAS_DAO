@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Reporte.BoletaNotasReporte;
 import Controlador.BoletaNotasControlador;
 import Controlador.EstudianteControlador;
 import Controlador.MatriculaControlador;
@@ -4374,7 +4375,23 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerNotasBNActionPerformed
 
     private void btnBuscarBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBN2ActionPerformed
-        // TODO add your handling code here:
+        BoletaNotasReporte reporte = new BoletaNotasReporte();
+
+        // Recoge los datos para el reporte
+        String codigoMatricula = txtIdMatriculaBN.getText();
+        String nombreEstudiante = txtNombreEstudianteBN.getText();
+        String programaEstudio = txtAProgramaEstudiosBN.getText();
+        String periodoAcademico = txtPeriodoAcadeBN.getText();
+        double totalCreditos = Double.parseDouble(txtTotalCreditosPeriodoBN.getText());
+        double puntajeTotal = Double.parseDouble(txtPuntajeTotalObtBN1.getText());
+        double promedioGeneral = Double.parseDouble(txtPromedioGeneralBN2.getText());
+        int ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
+        String condicion = "APROBADO SATISFACTORIAMENTE"; // Ejemplo, podrías calcularlo según la lógica
+
+        // Llama al método de generación de reporte
+        reporte.generarReporte(ListaDesempenoBN, codigoMatricula, nombreEstudiante, programaEstudio,
+                               periodoAcademico, totalCreditos, puntajeTotal, promedioGeneral, ordenMerito, condicion);
+    
     }//GEN-LAST:event_btnBuscarBN2ActionPerformed
 
     private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked

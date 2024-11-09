@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
     Connection con;
-    String url = "jdbc:sqlserver://localhost\\JUANCASANA:1433; databaseName=PruebaBoletaNotas;instance=MSSQLSERVER;encrypt=false;trustServerCertificate=true;";
+        String url = "jdbc:sqlserver://localhost\\JUANCASANA:1433;databaseName=PruebaBoletaNotas;instance=MSSQLSERVER;encrypt=false;trustServerCertificate=true;";
     private static final String usuario = "jcasana";
     private static final String contrasena = "jcasana0803";
     

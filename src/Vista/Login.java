@@ -32,6 +32,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         });
+        
     }
     
     private String hashPassword(String password) {
