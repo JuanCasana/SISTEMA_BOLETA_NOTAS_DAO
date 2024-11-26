@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BoletaNotasReporte {
 
-    public void generarReporte(List<BoletaNotasControlador> data, String codigoMatricula, String nombreEstudiante,
+    public void generarReporte(List<BoletaNotasControlador> ListaDesempenoBN, String codigoMatricula, String nombreEstudiante,
                                String programaEstudio, String periodoAcademico, double totalCreditos, 
                                double puntajeTotal, double promedioGeneral, int ordenMerito, String condicion) {
         try {
@@ -31,7 +31,7 @@ public class BoletaNotasReporte {
             parametros.put("condicion", condicion);
 
             // Fuente de datos para el reporte
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(ListaDesempenoBN);
 
             // Llenar el reporte con datos y parámetros
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, dataSource);

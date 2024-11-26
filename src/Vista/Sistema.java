@@ -538,7 +538,7 @@ public class Sistema extends javax.swing.JFrame {
         txtDniBN = new javax.swing.JTextField();
         btnBuscarBN = new javax.swing.JButton();
         btnVerNotasBN = new javax.swing.JButton();
-        btnBuscarBN2 = new javax.swing.JButton();
+        btnImprimirBN2 = new javax.swing.JButton();
         txtIdMatriculaBN = new javax.swing.JTextField();
         jScrollPane16 = new javax.swing.JScrollPane();
         tblEstudiantesBN = new javax.swing.JTable();
@@ -917,12 +917,12 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnBuscarBN2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnBuscarBN2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresorax32.png"))); // NOI18N
-        btnBuscarBN2.setText("Imprimir");
-        btnBuscarBN2.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimirBN2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnImprimirBN2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresorax32.png"))); // NOI18N
+        btnImprimirBN2.setText("Imprimir");
+        btnImprimirBN2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarBN2ActionPerformed(evt);
+                btnImprimirBN2ActionPerformed(evt);
             }
         });
 
@@ -960,6 +960,9 @@ public class Sistema extends javax.swing.JFrame {
         tblEstudiantesBN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEstudiantesBNMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblEstudiantesBNMouseEntered(evt);
             }
         });
         jScrollPane16.setViewportView(tblEstudiantesBN);
@@ -1000,7 +1003,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(125, 125, 125)
-                .addComponent(btnBuscarBN2)
+                .addComponent(btnImprimirBN2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVerNotasBN)
                 .addGap(122, 122, 122))
@@ -1025,7 +1028,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerNotasBN)
-                    .addComponent(btnBuscarBN2))
+                    .addComponent(btnImprimirBN2))
                 .addGap(210, 210, 210))
             .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel20Layout.createSequentialGroup()
@@ -4374,25 +4377,25 @@ public class Sistema extends javax.swing.JFrame {
         LimpiarTablaEspecifica(tblEstudiantesBN);
     }//GEN-LAST:event_btnVerNotasBNActionPerformed
 
-    private void btnBuscarBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBN2ActionPerformed
-        BoletaNotasReporte reporte = new BoletaNotasReporte();
-
-        // Recoge los datos para el reporte
-        String codigoMatricula = txtIdMatriculaBN.getText();
-        String nombreEstudiante = txtNombreEstudianteBN.getText();
-        String programaEstudio = txtAProgramaEstudiosBN.getText();
-        String periodoAcademico = txtPeriodoAcadeBN.getText();
-        double totalCreditos = Double.parseDouble(txtTotalCreditosPeriodoBN.getText());
-        double puntajeTotal = Double.parseDouble(txtPuntajeTotalObtBN1.getText());
-        double promedioGeneral = Double.parseDouble(txtPromedioGeneralBN2.getText());
-        int ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
-        String condicion = "APROBADO SATISFACTORIAMENTE"; // Ejemplo, podrías calcularlo según la lógica
-
-        // Llama al método de generación de reporte
-        reporte.generarReporte(ListaDesempenoBN, codigoMatricula, nombreEstudiante, programaEstudio,
-                               periodoAcademico, totalCreditos, puntajeTotal, promedioGeneral, ordenMerito, condicion);
-    
-    }//GEN-LAST:event_btnBuscarBN2ActionPerformed
+    private void btnImprimirBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirBN2ActionPerformed
+//        BoletaNotasReporte reporte = new BoletaNotasReporte();
+//
+//        // Recoge los datos para el reporte
+//        String codigoMatricula = txtIdMatriculaBN.getText();
+//        String nombreEstudiante = txtNombreEstudianteBN.getText();
+//        String programaEstudio = txtAProgramaEstudiosBN.getText();
+//        String periodoAcademico = txtPeriodoAcadeBN.getText();
+//        double totalCreditos = Double.parseDouble(txtTotalCreditosPeriodoBN.getText());
+//        double puntajeTotal = Double.parseDouble(txtPuntajeTotalObtBN1.getText());
+//        double promedioGeneral = Double.parseDouble(txtPromedioGeneralBN2.getText());
+//        int ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
+//        String condicion = "APROBADO SATISFACTORIAMENTE"; // Ejemplo, podrías calcularlo según la lógica
+//
+//        // Llama al método de generación de reporte
+//        reporte.generarReporte(ListaDesempenoBN, codigoMatricula, nombreEstudiante, programaEstudio,
+//                               periodoAcademico, totalCreditos, puntajeTotal, promedioGeneral, ordenMerito, condicion);
+//    
+    }//GEN-LAST:event_btnImprimirBN2ActionPerformed
 
     private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked
 
@@ -4402,8 +4405,8 @@ public class Sistema extends javax.swing.JFrame {
         int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
 
         String nombreEstudiante = tblEstudiantesBN.getValueAt(fila, 3).toString()
-                .replaceAll("<br>", " ")
-                .replaceAll("<[^>]*>", "");
+                    .replaceAll("<br>", " ")
+                    .replaceAll("<[^>]*>", "");
 
         String programaEstudios = tblEstudiantesBN.getValueAt(fila, 4).toString()
                 .replaceAll("<br>", " ")
@@ -4459,6 +4462,10 @@ public class Sistema extends javax.swing.JFrame {
         //System.out.println(IdMatricula);
 
     }//GEN-LAST:event_tblEstudiantesBNMouseClicked
+
+    private void tblEstudiantesBNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudiantesBNMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblEstudiantesBNMouseEntered
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -4517,7 +4524,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel PERIODO;
     private javax.swing.JTable TblModulo;
     private javax.swing.JButton btnBuscarBN;
-    private javax.swing.JButton btnBuscarBN2;
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JButton btnGuardarAlumno;
     private javax.swing.JButton btnGuardarMatricula;
@@ -4527,6 +4533,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarProgramaEstudio;
     private javax.swing.JButton btnGuardarUd;
     private javax.swing.JButton btnGuardarUsuario;
+    private javax.swing.JButton btnImprimirBN2;
     private javax.swing.JButton btnLimpiarAlumno;
     private javax.swing.JButton btnLimpiarMatricula;
     private javax.swing.JButton btnLimpiarModulo;
