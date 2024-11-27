@@ -6,6 +6,7 @@ package Vista;
 
 import Modelo.BoletaNotasReporte;
 import Controlador.BoletaNotasControlador;
+import Controlador.Conexion;
 import Controlador.EstudianteControlador;
 import Controlador.MatriculaControlador;
 import Controlador.ModulosControlador;
@@ -26,18 +27,29 @@ import Modelo.UnidadDidacticaDAO;
 import Modelo.UsuarioDAO;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Sistema extends javax.swing.JFrame {
 
@@ -365,13 +377,13 @@ public class Sistema extends javax.swing.JFrame {
             i = i - 1;
         }
     }
-    
+
     public void LimpiarTablaEspecifica(JTable tabla) {
-    // Obtiene el modelo de la tabla
-    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-    // Limpia todas las filas del modelo
-    modelo.setRowCount(0);
-}
+        // Obtiene el modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        // Limpia todas las filas del modelo
+        modelo.setRowCount(0);
+    }
 
     //FUNCIONA
     private void LimpiarUsuarios() {
@@ -4378,23 +4390,26 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerNotasBNActionPerformed
 
     private void btnImprimirBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirBN2ActionPerformed
-//        BoletaNotasReporte reporte = new BoletaNotasReporte();
-//
-//        // Recoge los datos para el reporte
-//        String codigoMatricula = txtIdMatriculaBN.getText();
-//        String nombreEstudiante = txtNombreEstudianteBN.getText();
-//        String programaEstudio = txtAProgramaEstudiosBN.getText();
-//        String periodoAcademico = txtPeriodoAcadeBN.getText();
-//        double totalCreditos = Double.parseDouble(txtTotalCreditosPeriodoBN.getText());
-//        double puntajeTotal = Double.parseDouble(txtPuntajeTotalObtBN1.getText());
-//        double promedioGeneral = Double.parseDouble(txtPromedioGeneralBN2.getText());
-//        int ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
-//        String condicion = "APROBADO SATISFACTORIAMENTE"; // Ejemplo, podrías calcularlo según la lógica
-//
-//        // Llama al método de generación de reporte
-//        reporte.generarReporte(ListaDesempenoBN, codigoMatricula, nombreEstudiante, programaEstudio,
-//                               periodoAcademico, totalCreditos, puntajeTotal, promedioGeneral, ordenMerito, condicion);
-//    
+
+        try {
+            Conexion cn = new Conexion();
+            Connection con;
+            con = cn.getConnection();
+
+            JasperReport reporte = null;
+            String path = "src\\Reporte\\BoletaNotasImp.jasper";
+            Map parametros = new HashMap();
+            parametros.put("CodigoMatricula", txtDniBN.getText());
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(path, parametros, con);
+            JasperViewer view = new JasperViewer(jasperPrint, false);
+            view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+        } catch (JRException e) {
+            System.err.println("Error al Realizar el reporte: " + e.getMessage());
+            e.printStackTrace(); // Esto ayuda a identificar errores específicos
+        }
+
     }//GEN-LAST:event_btnImprimirBN2ActionPerformed
 
     private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked
@@ -4405,8 +4420,8 @@ public class Sistema extends javax.swing.JFrame {
         int fila = tblEstudiantesBN.rowAtPoint(evt.getPoint());
 
         String nombreEstudiante = tblEstudiantesBN.getValueAt(fila, 3).toString()
-                    .replaceAll("<br>", " ")
-                    .replaceAll("<[^>]*>", "");
+                .replaceAll("<br>", " ")
+                .replaceAll("<[^>]*>", "");
 
         String programaEstudios = tblEstudiantesBN.getValueAt(fila, 4).toString()
                 .replaceAll("<br>", " ")
