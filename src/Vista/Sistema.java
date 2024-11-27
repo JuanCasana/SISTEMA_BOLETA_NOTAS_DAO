@@ -25,6 +25,7 @@ import Modelo.PeriodoLectivoDAO;
 import Modelo.ProgramaEstudioDAO;
 import Modelo.UnidadDidacticaDAO;
 import Modelo.UsuarioDAO;
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -4396,15 +4397,25 @@ public class Sistema extends javax.swing.JFrame {
             Connection con;
             con = cn.getConnection();
 
-            JasperReport reporte = null;
-            String path = "src\\Reporte\\BoletaNotasImp.jasper";
+            String path = "src/Reporte/BoletaNotasImp.jasper";
+            // Verifica que el archivo exista
+            File file = new File(path);
+            if (!file.exists()) {
+                JOptionPane.showMessageDialog(this, "El archivo del reporte no se encuentra en la ubicación especificada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+
             Map parametros = new HashMap();
             parametros.put("CodigoMatricula", txtDniBN.getText());
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(path, parametros, con);
+            
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(file);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, con);
+            
             JasperViewer view = new JasperViewer(jasperPrint, false);
             view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             view.setVisible(true);
+            
         } catch (JRException e) {
             System.err.println("Error al Realizar el reporte: " + e.getMessage());
             e.printStackTrace(); // Esto ayuda a identificar errores específicos
