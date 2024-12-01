@@ -26,6 +26,7 @@ import Modelo.ProgramaEstudioDAO;
 import Modelo.UnidadDidacticaDAO;
 import Modelo.UsuarioDAO;
 import java.io.File;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -933,6 +934,11 @@ public class Sistema extends javax.swing.JFrame {
         btnImprimirBN2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnImprimirBN2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresorax32.png"))); // NOI18N
         btnImprimirBN2.setText("Imprimir");
+        btnImprimirBN2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnImprimirBN2MouseClicked(evt);
+            }
+        });
         btnImprimirBN2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirBN2ActionPerformed(evt);
@@ -4391,36 +4397,64 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerNotasBNActionPerformed
 
     private void btnImprimirBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirBN2ActionPerformed
-
-        try {
-            Conexion cn = new Conexion();
-            Connection con;
-            con = cn.getConnection();
-
-            String path = "src/Reporte/BoletaNotasImp.jasper";
-            // Verifica que el archivo exista
-            File file = new File(path);
-            if (!file.exists()) {
-                JOptionPane.showMessageDialog(this, "El archivo del reporte no se encuentra en la ubicación especificada.", "Error", JOptionPane.ERROR_MESSAGE);
+           try {
+            // Verifica que haya una fila seleccionada en la tabla
+            int fila = tblEstudiantesBN.getSelectedRow();
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un estudiante antes de generar el reporte.");
                 return;
             }
+            Conexion cn = new Conexion();
+            Connection con = cn.getConnection();
+            // Recoge los datos para el reporte
+            String codigoMatricula = txtIdMatriculaBN.getText();
+            String nombreEstudiante = txtNombreEstudianteBN.getText();
+            String programaEstudio = txtProgramaEstudio.getText();
+            String periodoAcademico = txtAProgramaEstudiosBN.getText();
+            double totalCreditos = Double.parseDouble(txtTotalCreditosPeriodoBN.getText().replace(",", "."));
+            double puntajeTotal = Double.parseDouble(txtPuntajeTotalObtBN1.getText().replace(",", "."));
+            double promedioGeneral = Double.parseDouble(txtPromedioGeneralBN2.getText().replace(",", "."));
+            int ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
 
+            // Ruta del reporte compilado como InputStream
+            InputStream reportPath = getClass().getResourceAsStream("/Reporte/ImpBoletaNota.jasper");
+//        if (reportPath == null) {
+//            throw new JRException("El archivo del reporte no fue encontrado.");
+//        }
+            if (reportPath == null) {
+                JOptionPane.showMessageDialog(this, "El archivo del reporte no fue encontrado.");
+                System.err.println("Ruta del reporte: null");
+                return;
+            }
+            System.out.println("Ruta del reporte cargada correctamente.");
 
-            Map parametros = new HashMap();
-            parametros.put("CodigoMatricula", txtDniBN.getText());
+            // Parámetros a pasar al reporte
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("CodigoMatricula", codigoMatricula);
+            parametros.put("NombreEstudiante", nombreEstudiante);
+            parametros.put("ProgramaEstudio", programaEstudio);
+            parametros.put("PeriodoAcademico", periodoAcademico);
+            parametros.put("TotalCreditos", totalCreditos);
+            parametros.put("PuntajeTotal", puntajeTotal);
+            parametros.put("PromedioGeneral", promedioGeneral);
+            parametros.put("OrdenMerito", ordenMerito);
+
+            // Cargar el archivo del reporte
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(reportPath);
+
+            // Llenar el reporte con los parámetros y la conexión
             
-            JasperReport reporte = (JasperReport) JRLoader.loadObject(file);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, con);
-            
-            JasperViewer view = new JasperViewer(jasperPrint, false);
-            view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            view.setVisible(true);
-            
-        } catch (JRException e) {
-            System.err.println("Error al Realizar el reporte: " + e.getMessage());
-            e.printStackTrace(); // Esto ayuda a identificar errores específicos
+            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, con);
+
+            // Visualizar el reporte
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
+            viewer.setVisible(true);
+
+        } catch (JRException | NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + ex.getMessage());
+            ex.printStackTrace();
         }
-
     }//GEN-LAST:event_btnImprimirBN2ActionPerformed
 
     private void btnVerNotasBNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotasBNMouseClicked
@@ -4492,6 +4526,10 @@ public class Sistema extends javax.swing.JFrame {
     private void tblEstudiantesBNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEstudiantesBNMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_tblEstudiantesBNMouseEntered
+
+    private void btnImprimirBN2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirBN2MouseClicked
+ 
+    }//GEN-LAST:event_btnImprimirBN2MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
