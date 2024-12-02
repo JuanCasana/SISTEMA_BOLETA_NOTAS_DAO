@@ -1,7 +1,17 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
-<jasperReport name="ImprimirBoletaNotas" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4af508bb-0417-4cf3-923b-27d15a97abe1">
+<jasperReport name="ImprimirBoletaNotas" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c8ae4755-b22a-449e-ba94-3bfdc4a313b3">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion SqlServer"/>
+	<parameter name="CodigoMatricula" class="java.lang.String"/>
+	<parameter name="NombreEstudiante" class="java.lang.String"/>
+	<parameter name="ProgramaEstudio" class="java.lang.String"/>
+	<parameter name="TotalCreditos" class="java.lang.String"/>
+	<parameter name="PeriodoAcademico" class="java.lang.String"/>
+	<parameter name="PuntajeTotal" class="java.lang.String"/>
+	<parameter name="CreditosAprobados" class="java.lang.String"/>
+	<parameter name="CreditosDesprobados" class="java.lang.String"/>
+	<parameter name="PromedioGeneral" class="java.lang.String"/>
+	<parameter name="OrdenMerito" class="java.lang.String"/>
 	<query language="SQL"><![CDATA[	SELECT * FROM VistaUnidadesDidacticasNotas WHERE idMatricula = '60044651-AP-III']]></query>
 	<field name="Correlativo" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="Correlativo"/>
@@ -53,13 +63,416 @@
 		<expression><![CDATA[$F{IdPeriodoLectivo}]]></expression>
 	</group>
 	<background splitType="Stretch"/>
-	<title height="79" splitType="Stretch"/>
-	<pageHeader height="35" splitType="Stretch"/>
-	<columnHeader height="61" splitType="Stretch"/>
+	<title height="214" splitType="Stretch">
+		<element kind="image" uuid="dab8df6d-019f-4170-b3b4-dabf305c58ba" x="6" y="13" width="254" height="67">
+			<expression><![CDATA["Logo_del_Ministerio_de_Educación_del_Perú_-_MINEDU.png"]]></expression>
+		</element>
+		<element kind="image" uuid="f490aefa-ebcd-4cdb-ae99-2603198d39f3" x="257" y="17" width="240" height="50">
+			<expression><![CDATA["DREA.png"]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="image" uuid="509619d6-1ce0-4171-b123-386d8db8b7d9" x="480" y="2" width="75" height="80">
+			<expression><![CDATA["logo iestp-png.png"]]></expression>
+		</element>
+		<element kind="staticText" uuid="f318dc3d-e77c-4abc-86bf-32bbcd4af54f" x="6" y="85" width="555" height="30" rotation="None" fontName="Times New Roman" fontSize="19.0" underline="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[TARJETA DE INFORMACIÓN ACADÉMICA]]></text>
+		</element>
+		<element kind="staticText" uuid="c262d19b-113d-41a5-aa89-0a6729a22628" mode="Opaque" x="6" y="122" width="150" height="23" backcolor="#DBDBDB" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<text><![CDATA[CÓDIGO DE MATRÍCULA:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="2f786c4b-54fc-4464-9518-e862d35ce796" mode="Opaque" x="6" y="145" width="150" height="23" backcolor="#DBDBDB" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph lineSpacingSize="1.0" firstLineIndent="3"/>
+			<text><![CDATA[APELLIDOS Y NOMBRES:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="32122651-cd14-45e4-b583-fa217b84542e" mode="Opaque" x="6" y="168" width="150" height="23" backcolor="#DBDBDB" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph lineSpacingSize="1.0" firstLineIndent="3"/>
+			<text><![CDATA[PROGRAMA DE ESTUDIO:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="2ced0768-417c-4cf7-ac7e-47672678e550" mode="Opaque" x="6" y="191" width="150" height="23" backcolor="#DBDBDB" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph lineSpacingSize="1.0" firstLineIndent="3"/>
+			<text><![CDATA[PERIODO ACADÉMICO:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="b7644cb0-4645-4c10-9d95-08e9477bc5b7" x="156" y="122" width="269" height="23" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{CodigoMatricula}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="bf7f2fa2-75fa-45a9-aad3-5551a652f384" mode="Opaque" x="425" y="122" width="60" height="23" backcolor="#DBDBDB" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<text><![CDATA[SEXO:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="ac91a06f-2d92-4160-869f-ed90daf7df49" x="485" y="122" width="69" height="23" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA["Text Field"]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="3de35b24-12c0-4e89-b3e5-35fa41a357d2" x="156" y="145" width="398" height="23" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{NombreEstudiante}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="7bbdc206-c470-4b46-bcd8-171e9acf90a6" x="156" y="168" width="398" height="23" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{ProgramaEstudio}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="b7907d9a-bb3f-4daf-82c1-76ecda4c5ed7" x="156" y="191" width="218" height="23" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{PeriodoAcademico}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="5236e74f-2655-4dd8-8a75-63696627f793" mode="Opaque" x="374" y="191" width="110" height="23" backcolor="#DBDBDB" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<text><![CDATA[PERIODO LECTIVO:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="1fd58f28-6a2b-4e44-a39e-b637b88dc5c4" x="484" y="191" width="70" height="23" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA["Text Field"]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</title>
+	<columnHeader height="70" splitType="Stretch">
+		<element kind="staticText" uuid="078565f1-fe57-47b6-9755-9fcea4009312" mode="Opaque" x="20" y="10" width="40" height="60" backcolor="#BDBDBD" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[N°]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20ecef84-334b-45af-9a42-2586e551aab1"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="66fc428c-4f89-4786-b2e5-212667be40ee" mode="Opaque" x="60" y="10" width="310" height="60" backcolor="#BDBDBD" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[UnidadcDidáctica]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="691a11d4-5c50-46c6-97f0-2555dd6e5ca2"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="f3c2c71c-27c2-4a47-8fce-08cbc1d5820d" mode="Opaque" x="370" y="10" width="60" height="60" backcolor="#BDBDBD" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Creditos]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b17cfeb5-5625-40fc-a076-eaa24349c2a4"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="47f772d4-c256-42fa-9947-e8f61f836c4d" mode="Opaque" x="430" y="40" width="50" height="30" backcolor="#BDBDBD" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Numero]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3255c27f-baf1-4966-b866-2c730826c0a6"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="9eb8aced-6c2e-4f22-a257-4efbf5a975ba" mode="Opaque" x="480" y="40" width="59" height="30" backcolor="#BDBDBD" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Letras]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0684a16f-ee69-4e3b-b138-e46cdb36725a"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e3fafbca-16a5-4990-aeb0-afdf8c12d14f" mode="Opaque" x="430" y="10" width="109" height="30" backcolor="#BDBDBD" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[CALIFICATIVO]]></text>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="30" splitType="Stretch">
+			<element kind="textField" uuid="3b397803-861d-4c72-bb4d-20beecbefc88" x="20" y="0" width="40" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Correlativo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20ecef84-334b-45af-9a42-2586e551aab1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="9a1200ad-42cc-4336-928e-b7ade7e25aa2" x="60" y="0" width="310" height="30" hTextAlign="Left" vTextAlign="Middle">
+				<paragraph leftIndent="10"/>
+				<expression><![CDATA[$F{NombreUnidadDidactica}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="691a11d4-5c50-46c6-97f0-2555dd6e5ca2"/>
+				<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="f9a281b6-144c-452b-9836-965cb09e5805" x="370" y="0" width="60" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{CreditosUnidadDidactica}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b17cfeb5-5625-40fc-a076-eaa24349c2a4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="d8c26c10-68f5-4be4-b632-88ab9ec6a6a7" x="430" y="0" width="49" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Nota}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3255c27f-baf1-4966-b866-2c730826c0a6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="3984d622-e2f3-4d4e-97d0-b5c2fee573eb" x="480" y="0" width="59" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{IdPeriodoLectivo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0684a16f-ee69-4e3b-b138-e46cdb36725a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+			</element>
+		</band>
 	</detail>
-	<columnFooter height="45" splitType="Stretch"/>
-	<pageFooter height="54" splitType="Stretch"/>
+	<pageFooter height="219" splitType="Stretch">
+		<element kind="textField" uuid="9cce0f31-04ff-43d9-8b85-36df930e2d70" mode="Transparent" x="151" y="15" width="181" height="30" forecolor="#030303" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{TotalCreditos}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="3111eafc-41ab-403a-af26-320be2e4764c" mode="Opaque" x="3" y="15" width="149" height="30" backcolor="#DBDBDB" markup="styled" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3" leftIndent="3" rightIndent="3"/>
+			<text><![CDATA[Total Créditos del Periodo Académico:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="b14ee49d-0f7c-448c-8ea0-39736db2ad2d" mode="Opaque" x="3" y="45" width="149" height="30" backcolor="#DBDBDB" markup="styled" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3" leftIndent="3" rightIndent="3"/>
+			<text><![CDATA[Créditos Aprobados:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="533b13ad-dd93-4961-a2b9-a66d999f1e17" x="151" y="45" width="181" height="30" forecolor="#0000FF" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{CreditosAprobados}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="8eff6856-d8fd-497e-9fd2-3a75fc4bd49e" mode="Opaque" x="3" y="75" width="149" height="30" backcolor="#DBDBDB" markup="styled" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3" leftIndent="3" rightIndent="3"/>
+			<text><![CDATA[Promedio General:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="39087e3a-7652-43c3-8312-04a880eb99ab" x="151" y="75" width="181" height="30" forecolor="#0000FF" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{PromedioGeneral}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e032dfa1-5338-4b94-bc33-cc336844cf2e" mode="Opaque" x="332" y="15" width="101" height="30" backcolor="#DBDBDB" markup="styled" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3" leftIndent="3" rightIndent="3"/>
+			<text><![CDATA[Puntaje Total Obtenido:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="895c92e2-954d-42e8-880f-20eac6a71a07" mode="Transparent" x="433" y="15" width="118" height="30" forecolor="#030303" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{PuntajeTotal}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="375e5ac8-8eac-4999-a77a-7c030dec968a" x="433" y="45" width="118" height="30" forecolor="#FC130F" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{CreditosDesprobados}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="a39d9d93-027e-4db4-b824-edd337805dae" mode="Opaque" x="332" y="45" width="101" height="30" backcolor="#DBDBDB" markup="styled" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3" leftIndent="3" rightIndent="3"/>
+			<text><![CDATA[Créditos Desaprobados:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="6dc39fb6-3040-46b2-ba97-4dd1fa17d3d0" x="433" y="75" width="118" height="30" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA[$P{OrdenMerito}]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="2354f1ec-2af3-4cc5-b05e-2b96bd9215e1" mode="Opaque" x="332" y="75" width="101" height="30" backcolor="#DBDBDB" markup="styled" fontName="Times New Roman" fontSize="11.0" vTextAlign="Middle">
+			<paragraph firstLineIndent="3" leftIndent="3" rightIndent="3"/>
+			<text><![CDATA[Orden Merito:]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="0dd1a65f-e86c-45aa-9424-091db7e6e3ff" mode="Opaque" x="3" y="105" width="548" height="30" backcolor="#DBDBDB" markup="styled" fontName="Times New Roman" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3" leftIndent="3" rightIndent="3"/>
+			<text><![CDATA[Condición Académica]]></text>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			<box topPadding="0" leftPadding="0" rightPadding="0">
+				<pen lineWidth="1.0" lineStyle="Solid"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="627d6fff-fb68-4131-a70a-0c13ddd2bcef" x="3" y="135" width="548" height="30" forecolor="#030303" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<paragraph firstLineIndent="3"/>
+			<expression><![CDATA["Text Field"]]></expression>
+			<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="c92620db-28cd-43d6-a354-98d496b33ea1" x="332" y="165" width="60" height="22" fontName="Times New Roman" fontSize="14.0">
+			<text><![CDATA[Coracora,]]></text>
+		</element>
+		<element kind="textField" uuid="c0561262-1ce0-4870-ac03-331d9ba71fa6" x="392" y="165" width="159" height="22" fontName="Times New Roman" fontSize="14.0" pattern="dd 'de' MMMM 'de' yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="staticText" uuid="5768df7b-d593-4e6d-a463-995eee570cfa" x="0" y="184" width="170" height="19">
+			<text><![CDATA[https://istcoracora.edu.pe/]]></text>
+		</element>
+	</pageFooter>
 	<summary height="42" splitType="Stretch"/>
 </jasperReport>

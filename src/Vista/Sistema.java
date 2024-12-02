@@ -4404,8 +4404,7 @@ public class Sistema extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Por favor, selecciona un estudiante antes de generar el reporte.");
                 return;
             }
-            Conexion cn = new Conexion();
-            Connection con = cn.getConnection();
+            
             // Recoge los datos para el reporte
             String codigoMatricula = txtIdMatriculaBN.getText();
             String nombreEstudiante = txtNombreEstudianteBN.getText();
@@ -4439,11 +4438,13 @@ public class Sistema extends javax.swing.JFrame {
             parametros.put("PromedioGeneral", promedioGeneral);
             parametros.put("OrdenMerito", ordenMerito);
 
+            Conexion cn = new Conexion();
+            Connection con = cn.getConnection();
+            
             // Cargar el archivo del reporte
             JasperReport reporte = (JasperReport) JRLoader.loadObject(reportPath);
 
             // Llenar el reporte con los parámetros y la conexión
-            
             JasperPrint print = JasperFillManager.fillReport(reporte, parametros, con);
 
             // Visualizar el reporte
