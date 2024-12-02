@@ -19,7 +19,7 @@ public class Conexion {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = (Connection) DriverManager.getConnection(url, usuario, contrasena);
-            JOptionPane.showMessageDialog(null, "Conexión Exitosa");
+            //JOptionPane.showMessageDialog(null, "Conexión Exitosa");
             
         } catch (ClassNotFoundException | SQLException e)  {
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());

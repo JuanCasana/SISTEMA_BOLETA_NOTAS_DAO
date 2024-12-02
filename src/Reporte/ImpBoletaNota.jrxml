@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c80e2a86-2d94-4a38-a586-c28a9cca9a7b">
-	<property name="ireport.zoom" value="1.6105100000000008"/>
-	<property name="ireport.x" value="15"/>
-	<property name="ireport.y" value="535"/>
+	<property name="ireport.zoom" value="1.3660269107301415"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="313"/>
 	<parameter name="CodigoMatricula" class="java.lang.String"/>
 	<parameter name="NombreEstudiante" class="java.lang.String"/>
 	<parameter name="ProgramaEstudio" class="java.lang.String"/>
@@ -27,7 +27,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="275" splitType="Stretch">
+		<band height="273" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="19" width="221" height="60" uuid="5bddf032-d125-47fe-94c3-cf7100f7b07d"/>
 				<imageExpression><![CDATA["D:\\JUAN CASANA\\Documents\\IST - CAGM - 2024\\2024-II\\PROYECTOS\\SISTEMA_BOLETA_NOTAS_DAO\\src\\Reporte\\Logo_del_Ministerio_de_Educación_del_Perú_-_MINEDU.png"]]></imageExpression>

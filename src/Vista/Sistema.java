@@ -4417,7 +4417,7 @@ public class Sistema extends javax.swing.JFrame {
             int ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
 
             // Ruta del reporte compilado como InputStream
-            InputStream reportPath = getClass().getResourceAsStream("/Reporte/ImpBoletaNota.jasper");
+            InputStream reportPath = getClass().getResourceAsStream("/Reporte/ImprimirBoletaNotas.jasper");
 //        if (reportPath == null) {
 //            throw new JRException("El archivo del reporte no fue encontrado.");
 //        }
