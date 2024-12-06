@@ -738,3 +738,9 @@ FROM
 	SELECT * FROM Matricula
 
 	SELECT * FROM VistaUnidadesDidacticasNotas WHERE idMatricula = '60044651-AP-III';
+
+
+	SELECT * FROM Matricula WHERE IdMatricula = '11111111-AP-III';
+	SELECT * FROM VistaAlumnoMatricula WHERE IdMatricula = '11111111-AP-III';
+	SELECT * FROM Matricula;
+	SELECT * FROM Alumno;

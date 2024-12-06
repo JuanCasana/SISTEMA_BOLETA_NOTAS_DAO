@@ -70,4 +70,14 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="compile">
+    <mkdir dir="build/classes" />
+    <javac srcdir="src" destdir="build/classes" includeantruntime="false">
+        <classpath refid="classpath" />
+    </javac>
+    <copy todir="build/classes/Reporte">
+        <fileset dir="src/Reporte" includes="*.jasper" />
+    </copy>
+</target>
+
 </project>

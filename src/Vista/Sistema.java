@@ -47,6 +47,7 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -4397,58 +4398,76 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerNotasBNActionPerformed
 
     private void btnImprimirBN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirBN2ActionPerformed
-           try {
-            // Verifica que haya una fila seleccionada en la tabla
-            int fila = tblEstudiantesBN.getSelectedRow();
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(this, "Por favor, selecciona un estudiante antes de generar el reporte.");
-                return;
-            }
-            
-            // Recoge los datos para el reporte
-            String codigoMatricula = txtIdMatriculaBN.getText();
-            String nombreEstudiante = txtNombreEstudianteBN.getText();
-            String programaEstudio = txtProgramaEstudio.getText();
-            String periodoAcademico = txtAProgramaEstudiosBN.getText();
-            double totalCreditos = Double.parseDouble(txtTotalCreditosPeriodoBN.getText().replace(",", "."));
-            double puntajeTotal = Double.parseDouble(txtPuntajeTotalObtBN1.getText().replace(",", "."));
-            double promedioGeneral = Double.parseDouble(txtPromedioGeneralBN2.getText().replace(",", "."));
-            int ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
+        try {
+            // Verifica que los campos estén completos y establece valores predeterminados si es necesario
+//            String codigoMatricula = txtIdMatriculaBN.getText();
+//            String nombreEstudiante = txtNombreEstudianteBN.getText();
+//            String programaEstudio = txtProgramaEstudio.getText();
+//            String periodoAcademico = txtAProgramaEstudiosBN.getText();
+//
+//            // Verifica si los campos de texto están vacíos y asigna valores predeterminados
+//            double totalCreditos = 0.0;
+//            if (!txtTotalCreditosPeriodoBN.getText().trim().isEmpty()) {
+//                totalCreditos = Double.parseDouble(txtTotalCreditosPeriodoBN.getText().replace(",", "."));
+//            }
+//
+//            double puntajeTotal = 0.0;
+//            if (!txtPuntajeTotalObtBN1.getText().trim().isEmpty()) {
+//                puntajeTotal = Double.parseDouble(txtPuntajeTotalObtBN1.getText().replace(",", "."));
+//            }
+//
+//            double promedioGeneral = 0.0;
+//            if (!txtPromedioGeneralBN2.getText().trim().isEmpty()) {
+//                promedioGeneral = Double.parseDouble(txtPromedioGeneralBN2.getText().replace(",", "."));
+//            }
+//
+//            int ordenMerito = 0;
+//            if (!txtOrdenMeritoBN3.getText().trim().isEmpty()) {
+//                ordenMerito = Integer.parseInt(txtOrdenMeritoBN3.getText());
+//            }
 
-            // Ruta del reporte compilado como InputStream
-            InputStream reportPath = getClass().getResourceAsStream("/Reporte/ImprimirBoletaNotas.jasper");
-//        if (reportPath == null) {
-//            throw new JRException("El archivo del reporte no fue encontrado.");
-//        }
-            if (reportPath == null) {
-                JOptionPane.showMessageDialog(this, "El archivo del reporte no fue encontrado.");
-                System.err.println("Ruta del reporte: null");
-                return;
-            }
-            System.out.println("Ruta del reporte cargada correctamente.");
+            // Ruta del archivo .jrxml y .jasper
+            String jrxmlPath = "src/Reporte/report1.jrxml";
+            String jasperPath = "src/Reporte/report1.jasper";
 
-            // Parámetros a pasar al reporte
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("CodigoMatricula", codigoMatricula);
-            parametros.put("NombreEstudiante", nombreEstudiante);
-            parametros.put("ProgramaEstudio", programaEstudio);
-            parametros.put("PeriodoAcademico", periodoAcademico);
-            parametros.put("TotalCreditos", totalCreditos);
-            parametros.put("PuntajeTotal", puntajeTotal);
-            parametros.put("PromedioGeneral", promedioGeneral);
-            parametros.put("OrdenMerito", ordenMerito);
+//            // Compilar el archivo .jrxml a .jasper si no existe
+//            File jasperFile = new File(jasperPath);
+//            if (!jasperFile.exists()) {
+//                System.out.println("Compilando el archivo .jrxml...");
+//                JasperCompileManager.compileReportToFile(jrxmlPath, jasperPath);
+//                System.out.println("Archivo .jasper generado en: " + jasperPath);
+//            } else {
+//                System.out.println("Archivo .jasper encontrado: " + jasperPath);
+//            }
 
+            // Cargar el archivo .jasper
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasperPath);
+
+//            // Configurar los parámetros para el reporte
+//            Map<String, Object> parametros = new HashMap<>();
+//            parametros.put("CodigoMatricula", codigoMatricula);
+//            parametros.put("NombreEstudiante", nombreEstudiante);
+//            parametros.put("ProgramaEstudio", programaEstudio);
+//            parametros.put("PeriodoAcademico", periodoAcademico);
+//            parametros.put("TotalCreditos", totalCreditos);
+//            parametros.put("PuntajeTotal", puntajeTotal);
+//            parametros.put("PromedioGeneral", promedioGeneral);
+//            parametros.put("OrdenMerito", ordenMerito);
+
+            // Conexión a la base de datos
             Conexion cn = new Conexion();
             Connection con = cn.getConnection();
-            
-            // Cargar el archivo del reporte
-            JasperReport reporte = (JasperReport) JRLoader.loadObject(reportPath);
+            if (con == null) {
+                JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.");
+                return;
+            }
 
-            // Llenar el reporte con los parámetros y la conexión
-            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, con);
+            // Llenar el reporte
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, con);
+            //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, con);
 
             // Visualizar el reporte
-            JasperViewer viewer = new JasperViewer(print, false);
+            JasperViewer viewer = new JasperViewer(jasperPrint, false);
             viewer.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
             viewer.setVisible(true);
 
@@ -4529,7 +4548,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_tblEstudiantesBNMouseEntered
 
     private void btnImprimirBN2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirBN2MouseClicked
- 
+
     }//GEN-LAST:event_btnImprimirBN2MouseClicked
 
     public static void main(String args[]) {
